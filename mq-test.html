@@ -33,6 +33,18 @@
     @media all and (aspect-ratio) {
       #aspect-ratio {color: black; font-weight: bold;}
     }
+    @media all and (min-aspect-ratio: 1/2) {
+      #min-aspect-ratio_1/2 {color: red; font-weight: bold;}
+    }
+    @media all and (min-aspect-ratio: 9/16) {
+      #min-aspect-ratio_9/16 {color: red; font-weight: bold;}
+    }
+    @media all and (min-aspect-ratio: 3/4) {
+      #min-aspect-ratio_3/4 {color: red; font-weight: bold;}
+    }
+    @media all and (min-aspect-ratio: 1/1) {
+      #min-aspect-ratio_1/1 {color: red; font-weight: bold;}
+    }
     @media all and (min-aspect-ratio: 4/3) {
       #min-aspect-ratio_4/3 {color: red; font-weight: bold;}
     }
@@ -266,6 +278,10 @@
   </div>
   <div>
     <span id="aspect-ratio">aspect-ratio (min):</span>
+    <span id="min-aspect-ratio_1/2">1/2</span>
+    <span id="min-aspect-ratio_9/16">9/16</span>
+    <span id="min-aspect-ratio_3/4">3/4</span>
+    <span id="min-aspect-ratio_1/1">1/1</span>
     <span id="min-aspect-ratio_4/3">4/3</span>
     <span id="min-aspect-ratio_16/9">16/9</span>
     <span id="min-aspect-ratio_2/1">2/1</span>

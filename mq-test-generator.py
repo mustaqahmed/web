@@ -14,7 +14,7 @@ class MQFeature:
 mq_features = [
     MQFeature("width", ["100px", "400px", "1600px"], "min"),
     MQFeature("height", ["200px", "800px", "3200px"], "min"),
-    MQFeature("aspect-ratio", ["4/3", "16/9", "2/1"], "min"),
+    MQFeature("aspect-ratio", ["1/2", "9/16", "3/4", "1/1", "4/3", "16/9", "2/1"], "min"),
     MQFeature("orientation", ["portrait", "landscape"]),
 
     MQFeature("resolution", ["100dpi", "200dpi", "400dpi", "800dpi"], "min"),
