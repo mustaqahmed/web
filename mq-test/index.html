@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="description" content="Media query tester">
+  <meta charset="utf-8">
+  <title>Media query tester</title>
+  <style>
+    * {color: gray}
+    @media all and (pointer) {
+      #pointer {color: black; font-weight: bold;}
+    }
+    @media all and (pointer: none) {
+      #pointer_none {color: red; font-weight: bold;}
+    }
+    @media all and (pointer: coarse) {
+      #pointer_coarse {color: red; font-weight: bold;}
+    }
+    @media all and (pointer: fine) {
+      #pointer_fine {color: red; font-weight: bold;}
+    }
+    @media all and (any-pointer) {
+      #any-pointer {color: black; font-weight: bold;}
+    }
+    @media all and (any-pointer: none) {
+      #any-pointer_none {color: red; font-weight: bold;}
+    }
+    @media all and (any-pointer: coarse) {
+      #any-pointer_coarse {color: red; font-weight: bold;}
+    }
+    @media all and (any-pointer: fine) {
+      #any-pointer_fine {color: red; font-weight: bold;}
+    }
+    @media all and (hover) {
+      #hover {color: black; font-weight: bold;}
+    }
+    @media all and (hover: none) {
+      #hover_none {color: red; font-weight: bold;}
+    }
+    @media all and (hover: on-demand) {
+      #hover_on-demand {color: red; font-weight: bold;}
+    }
+    @media all and (hover: hover) {
+      #hover_hover {color: red; font-weight: bold;}
+    }
+    @media all and (any-hover) {
+      #any-hover {color: black; font-weight: bold;}
+    }
+    @media all and (any-hover: none) {
+      #any-hover_none {color: red; font-weight: bold;}
+    }
+    @media all and (any-hover: on-demand) {
+      #any-hover_on-demand {color: red; font-weight: bold;}
+    }
+    @media all and (any-hover: hover) {
+      #any-hover_hover {color: red; font-weight: bold;}
+    }
+    @media all and (scan) {
+      #scan {color: black; font-weight: bold;}
+    }
+    @media all and (scan: interlace) {
+      #scan_interlace {color: red; font-weight: bold;}
+    }
+    @media all and (scan: progressive) {
+      #scan_progressive {color: red; font-weight: bold;}
+    }
+    @media all and (color) {
+      #color {color: black; font-weight: bold;}
+    }
+    @media all and (min-color: 1) {
+      #min-color_1 {color: red; font-weight: bold;}
+    }
+    @media all and (min-color: 2) {
+      #min-color_2 {color: red; font-weight: bold;}
+    }
+    @media all and (min-color: 4) {
+      #min-color_4 {color: red; font-weight: bold;}
+    }
+    @media all and (min-color: 8) {
+      #min-color_8 {color: red; font-weight: bold;}
+    }
+    @media all and (min-color: 16) {
+      #min-color_16 {color: red; font-weight: bold;}
+    }
+
+  </style>
+</head>
+<body>
+  <div>
+    <span id="pointer">pointer:</span>
+    <span id="pointer_none">none</span>
+    <span id="pointer_coarse">coarse</span>
+    <span id="pointer_fine">fine</span>
+
+  </div>
+  <div>
+    <span id="any-pointer">any-pointer:</span>
+    <span id="any-pointer_none">none</span>
+    <span id="any-pointer_coarse">coarse</span>
+    <span id="any-pointer_fine">fine</span>
+
+  </div>
+  <div>
+    <span id="hover">hover:</span>
+    <span id="hover_none">none</span>
+    <span id="hover_on-demand">on-demand</span>
+    <span id="hover_hover">hover</span>
+
+  </div>
+  <div>
+    <span id="any-hover">any-hover:</span>
+    <span id="any-hover_none">none</span>
+    <span id="any-hover_on-demand">on-demand</span>
+    <span id="any-hover_hover">hover</span>
+
+  </div>
+  <div>
+    <span id="scan">scan:</span>
+    <span id="scan_interlace">interlace</span>
+    <span id="scan_progressive">progressive</span>
+
+  </div>
+  <div>
+    <span id="color">color (min):</span>
+    <span id="min-color_1">1</span>
+    <span id="min-color_2">2</span>
+    <span id="min-color_4">4</span>
+    <span id="min-color_8">8</span>
+    <span id="min-color_16">16</span>
+
+  </div>
+
+</body>
+</html>
