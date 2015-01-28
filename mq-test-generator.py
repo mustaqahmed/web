@@ -12,8 +12,8 @@ class MQFeature:
         self.prefix = feature_prefix
 
 mq_features = [
-    MQFeature("width", ["100px", "400px", "1600px"], "min"),
-    MQFeature("height", ["200px", "800px", "3200px"], "min"),
+    MQFeature("width", ["200px", "400px", "800px", "1000px", "1200px", "1600px"], "min"),
+    MQFeature("height", ["200px", "400px", "800px", "1000px", "1200px", "1600px"], "min"),
     MQFeature("aspect-ratio", ["1/2", "9/16", "3/4", "1/1", "4/3", "16/9", "2/1"], "min"),
     MQFeature("orientation", ["portrait", "landscape"]),
 
@@ -45,8 +45,8 @@ html_template="""\
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="description" content="Media query tester">
   <meta charset="utf-8">
+  <meta name="description" content="Media query tester, generated using mq-test-generator.py">
   <title>Media query tester</title>
   <style>
     * {color: gray}
@@ -60,18 +60,22 @@ ${html_body}
 
 feature_name_style_template="""\
     @media all and (${feature_name}) {
-      #${feature_name} {color: black; font-weight: bold;}
+      #${feature_name} {
+        color: black; font-weight: bold;
+      }
     }
 """
 
 feature_value_style_template="""\
     @media all and (${prefixed_feature_name}: ${feature_value}) {
-      #${prefixed_feature_name}_${feature_value} {color: red; font-weight: bold;}
+      #${prefixed_feature_name}_${feature_value} {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
 """
 
 feature_block_template="""\
-  <div>
+  <div style="margin: 10px;">
     <span id="${feature_name}">${feature_name_label}:</span>
 ${feature_value_blocks}
   </div>
@@ -111,7 +115,6 @@ for mq_feature in mq_features:
     feature_block = Template(feature_block_template).substitute(
         {"feature_name" : mq_feature.name,
          "feature_name_label" : feature_name_label,
-         "prefixed_feature_name" : prefixed_feature_name,
          "feature_value_blocks" : feature_value_blocks})
 
     html_body += feature_block

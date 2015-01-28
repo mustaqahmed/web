@@ -1,282 +1,486 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="description" content="Media query tester">
   <meta charset="utf-8">
+  <meta name="description" content="Media query tester, generated using mq-test-generator.py">
   <title>Media query tester</title>
   <style>
     * {color: gray}
     @media all and (width) {
-      #width {color: black; font-weight: bold;}
+      #width {
+        color: black; font-weight: bold;
+      }
     }
-    @media all and (min-width: 100px) {
-      #min-width_100px {color: red; font-weight: bold;}
+    @media all and (min-width: 200px) {
+      #min-width_200px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-width: 400px) {
-      #min-width_400px {color: red; font-weight: bold;}
+      #min-width_400px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
+    }
+    @media all and (min-width: 800px) {
+      #min-width_800px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
+    }
+    @media all and (min-width: 1000px) {
+      #min-width_1000px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
+    }
+    @media all and (min-width: 1200px) {
+      #min-width_1200px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-width: 1600px) {
-      #min-width_1600px {color: red; font-weight: bold;}
+      #min-width_1600px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (height) {
-      #height {color: black; font-weight: bold;}
+      #height {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (min-height: 200px) {
-      #min-height_200px {color: red; font-weight: bold;}
+      #min-height_200px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
+    }
+    @media all and (min-height: 400px) {
+      #min-height_400px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-height: 800px) {
-      #min-height_800px {color: red; font-weight: bold;}
+      #min-height_800px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
-    @media all and (min-height: 3200px) {
-      #min-height_3200px {color: red; font-weight: bold;}
+    @media all and (min-height: 1000px) {
+      #min-height_1000px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
+    }
+    @media all and (min-height: 1200px) {
+      #min-height_1200px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
+    }
+    @media all and (min-height: 1600px) {
+      #min-height_1600px {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (aspect-ratio) {
-      #aspect-ratio {color: black; font-weight: bold;}
+      #aspect-ratio {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (min-aspect-ratio: 1/2) {
-      #min-aspect-ratio_1/2 {color: red; font-weight: bold;}
+      #min-aspect-ratio_1/2 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-aspect-ratio: 9/16) {
-      #min-aspect-ratio_9/16 {color: red; font-weight: bold;}
+      #min-aspect-ratio_9/16 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-aspect-ratio: 3/4) {
-      #min-aspect-ratio_3/4 {color: red; font-weight: bold;}
+      #min-aspect-ratio_3/4 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-aspect-ratio: 1/1) {
-      #min-aspect-ratio_1/1 {color: red; font-weight: bold;}
+      #min-aspect-ratio_1/1 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-aspect-ratio: 4/3) {
-      #min-aspect-ratio_4/3 {color: red; font-weight: bold;}
+      #min-aspect-ratio_4/3 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-aspect-ratio: 16/9) {
-      #min-aspect-ratio_16/9 {color: red; font-weight: bold;}
+      #min-aspect-ratio_16/9 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-aspect-ratio: 2/1) {
-      #min-aspect-ratio_2/1 {color: red; font-weight: bold;}
+      #min-aspect-ratio_2/1 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (orientation) {
-      #orientation {color: black; font-weight: bold;}
+      #orientation {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (orientation: portrait) {
-      #orientation_portrait {color: red; font-weight: bold;}
+      #orientation_portrait {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (orientation: landscape) {
-      #orientation_landscape {color: red; font-weight: bold;}
+      #orientation_landscape {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (resolution) {
-      #resolution {color: black; font-weight: bold;}
+      #resolution {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (min-resolution: 100dpi) {
-      #min-resolution_100dpi {color: red; font-weight: bold;}
+      #min-resolution_100dpi {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-resolution: 200dpi) {
-      #min-resolution_200dpi {color: red; font-weight: bold;}
+      #min-resolution_200dpi {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-resolution: 400dpi) {
-      #min-resolution_400dpi {color: red; font-weight: bold;}
+      #min-resolution_400dpi {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-resolution: 800dpi) {
-      #min-resolution_800dpi {color: red; font-weight: bold;}
+      #min-resolution_800dpi {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (scan) {
-      #scan {color: black; font-weight: bold;}
+      #scan {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (scan: interlace) {
-      #scan_interlace {color: red; font-weight: bold;}
+      #scan_interlace {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (scan: progressive) {
-      #scan_progressive {color: red; font-weight: bold;}
+      #scan_progressive {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (grid) {
-      #grid {color: black; font-weight: bold;}
+      #grid {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (update-frequency) {
-      #update-frequency {color: black; font-weight: bold;}
+      #update-frequency {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (update-frequency: none) {
-      #update-frequency_none {color: red; font-weight: bold;}
+      #update-frequency_none {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (update-frequency: slow) {
-      #update-frequency_slow {color: red; font-weight: bold;}
+      #update-frequency_slow {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (update-frequency: normal) {
-      #update-frequency_normal {color: red; font-weight: bold;}
+      #update-frequency_normal {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (overflow-block) {
-      #overflow-block {color: black; font-weight: bold;}
+      #overflow-block {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (overflow-block: none) {
-      #overflow-block_none {color: red; font-weight: bold;}
+      #overflow-block_none {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (overflow-block: scroll) {
-      #overflow-block_scroll {color: red; font-weight: bold;}
+      #overflow-block_scroll {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (overflow-block: optional-paged) {
-      #overflow-block_optional-paged {color: red; font-weight: bold;}
+      #overflow-block_optional-paged {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (overflow-block: paged) {
-      #overflow-block_paged {color: red; font-weight: bold;}
+      #overflow-block_paged {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (overflow-inline) {
-      #overflow-inline {color: black; font-weight: bold;}
+      #overflow-inline {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (overflow-inline: none) {
-      #overflow-inline_none {color: red; font-weight: bold;}
+      #overflow-inline_none {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (overflow-inline: scroll) {
-      #overflow-inline_scroll {color: red; font-weight: bold;}
+      #overflow-inline_scroll {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (color) {
-      #color {color: black; font-weight: bold;}
+      #color {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (min-color: 1) {
-      #min-color_1 {color: red; font-weight: bold;}
+      #min-color_1 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-color: 2) {
-      #min-color_2 {color: red; font-weight: bold;}
+      #min-color_2 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-color: 4) {
-      #min-color_4 {color: red; font-weight: bold;}
+      #min-color_4 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-color: 8) {
-      #min-color_8 {color: red; font-weight: bold;}
+      #min-color_8 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-color: 16) {
-      #min-color_16 {color: red; font-weight: bold;}
+      #min-color_16 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-color: 32) {
-      #min-color_32 {color: red; font-weight: bold;}
+      #min-color_32 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (color-index) {
-      #color-index {color: black; font-weight: bold;}
+      #color-index {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (min-color-index: 1) {
-      #min-color-index_1 {color: red; font-weight: bold;}
+      #min-color-index_1 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-color-index: 2) {
-      #min-color-index_2 {color: red; font-weight: bold;}
+      #min-color-index_2 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-color-index: 4) {
-      #min-color-index_4 {color: red; font-weight: bold;}
+      #min-color-index_4 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-color-index: 8) {
-      #min-color-index_8 {color: red; font-weight: bold;}
+      #min-color-index_8 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (monochrome) {
-      #monochrome {color: black; font-weight: bold;}
+      #monochrome {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (min-monochrome: 1) {
-      #min-monochrome_1 {color: red; font-weight: bold;}
+      #min-monochrome_1 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-monochrome: 2) {
-      #min-monochrome_2 {color: red; font-weight: bold;}
+      #min-monochrome_2 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-monochrome: 4) {
-      #min-monochrome_4 {color: red; font-weight: bold;}
+      #min-monochrome_4 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (min-monochrome: 8) {
-      #min-monochrome_8 {color: red; font-weight: bold;}
+      #min-monochrome_8 {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (inverted-colors) {
-      #inverted-colors {color: black; font-weight: bold;}
+      #inverted-colors {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (inverted-colors: none) {
-      #inverted-colors_none {color: red; font-weight: bold;}
+      #inverted-colors_none {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (inverted-colors: inverted) {
-      #inverted-colors_inverted {color: red; font-weight: bold;}
+      #inverted-colors_inverted {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (pointer) {
-      #pointer {color: black; font-weight: bold;}
+      #pointer {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (pointer: none) {
-      #pointer_none {color: red; font-weight: bold;}
+      #pointer_none {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (pointer: coarse) {
-      #pointer_coarse {color: red; font-weight: bold;}
+      #pointer_coarse {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (pointer: fine) {
-      #pointer_fine {color: red; font-weight: bold;}
+      #pointer_fine {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (hover) {
-      #hover {color: black; font-weight: bold;}
+      #hover {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (hover: none) {
-      #hover_none {color: red; font-weight: bold;}
+      #hover_none {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (hover: on-demand) {
-      #hover_on-demand {color: red; font-weight: bold;}
+      #hover_on-demand {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (hover: hover) {
-      #hover_hover {color: red; font-weight: bold;}
+      #hover_hover {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (any-pointer) {
-      #any-pointer {color: black; font-weight: bold;}
+      #any-pointer {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (any-pointer: none) {
-      #any-pointer_none {color: red; font-weight: bold;}
+      #any-pointer_none {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (any-pointer: coarse) {
-      #any-pointer_coarse {color: red; font-weight: bold;}
+      #any-pointer_coarse {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (any-pointer: fine) {
-      #any-pointer_fine {color: red; font-weight: bold;}
+      #any-pointer_fine {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (any-hover) {
-      #any-hover {color: black; font-weight: bold;}
+      #any-hover {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (any-hover: none) {
-      #any-hover_none {color: red; font-weight: bold;}
+      #any-hover_none {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (any-hover: on-demand) {
-      #any-hover_on-demand {color: red; font-weight: bold;}
+      #any-hover_on-demand {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (any-hover: hover) {
-      #any-hover_hover {color: red; font-weight: bold;}
+      #any-hover_hover {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (light-level) {
-      #light-level {color: black; font-weight: bold;}
+      #light-level {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (light-level: dim) {
-      #light-level_dim {color: red; font-weight: bold;}
+      #light-level_dim {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (light-level: normal) {
-      #light-level_normal {color: red; font-weight: bold;}
+      #light-level_normal {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (light-level: washed) {
-      #light-level_washed {color: red; font-weight: bold;}
+      #light-level_washed {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (scripting) {
-      #scripting {color: black; font-weight: bold;}
+      #scripting {
+        color: black; font-weight: bold;
+      }
     }
     @media all and (scripting: none) {
-      #scripting_none {color: red; font-weight: bold;}
+      #scripting_none {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (scripting: initial-only) {
-      #scripting_initial-only {color: red; font-weight: bold;}
+      #scripting_initial-only {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
     @media all and (scripting: enabled) {
-      #scripting_enabled {color: red; font-weight: bold;}
+      #scripting_enabled {
+        color: red; font-weight: bold; border: 1px solid red
+      }
     }
 
   </style>
 </head>
 <body>
-  <div>
+  <div style="margin: 10px;">
     <span id="width">width (min):</span>
-    <span id="min-width_100px">100px</span>
+    <span id="min-width_200px">200px</span>
     <span id="min-width_400px">400px</span>
+    <span id="min-width_800px">800px</span>
+    <span id="min-width_1000px">1000px</span>
+    <span id="min-width_1200px">1200px</span>
     <span id="min-width_1600px">1600px</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="height">height (min):</span>
     <span id="min-height_200px">200px</span>
+    <span id="min-height_400px">400px</span>
     <span id="min-height_800px">800px</span>
-    <span id="min-height_3200px">3200px</span>
+    <span id="min-height_1000px">1000px</span>
+    <span id="min-height_1200px">1200px</span>
+    <span id="min-height_1600px">1600px</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="aspect-ratio">aspect-ratio (min):</span>
     <span id="min-aspect-ratio_1/2">1/2</span>
     <span id="min-aspect-ratio_9/16">9/16</span>
@@ -287,13 +491,13 @@
     <span id="min-aspect-ratio_2/1">2/1</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="orientation">orientation:</span>
     <span id="orientation_portrait">portrait</span>
     <span id="orientation_landscape">landscape</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="resolution">resolution (min):</span>
     <span id="min-resolution_100dpi">100dpi</span>
     <span id="min-resolution_200dpi">200dpi</span>
@@ -301,24 +505,24 @@
     <span id="min-resolution_800dpi">800dpi</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="scan">scan:</span>
     <span id="scan_interlace">interlace</span>
     <span id="scan_progressive">progressive</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="grid">grid:</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="update-frequency">update-frequency:</span>
     <span id="update-frequency_none">none</span>
     <span id="update-frequency_slow">slow</span>
     <span id="update-frequency_normal">normal</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="overflow-block">overflow-block:</span>
     <span id="overflow-block_none">none</span>
     <span id="overflow-block_scroll">scroll</span>
@@ -326,13 +530,13 @@
     <span id="overflow-block_paged">paged</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="overflow-inline">overflow-inline:</span>
     <span id="overflow-inline_none">none</span>
     <span id="overflow-inline_scroll">scroll</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="color">color (min):</span>
     <span id="min-color_1">1</span>
     <span id="min-color_2">2</span>
@@ -342,7 +546,7 @@
     <span id="min-color_32">32</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="color-index">color-index (min):</span>
     <span id="min-color-index_1">1</span>
     <span id="min-color-index_2">2</span>
@@ -350,7 +554,7 @@
     <span id="min-color-index_8">8</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="monochrome">monochrome (min):</span>
     <span id="min-monochrome_1">1</span>
     <span id="min-monochrome_2">2</span>
@@ -358,48 +562,48 @@
     <span id="min-monochrome_8">8</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="inverted-colors">inverted-colors:</span>
     <span id="inverted-colors_none">none</span>
     <span id="inverted-colors_inverted">inverted</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="pointer">pointer:</span>
     <span id="pointer_none">none</span>
     <span id="pointer_coarse">coarse</span>
     <span id="pointer_fine">fine</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="hover">hover:</span>
     <span id="hover_none">none</span>
     <span id="hover_on-demand">on-demand</span>
     <span id="hover_hover">hover</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="any-pointer">any-pointer:</span>
     <span id="any-pointer_none">none</span>
     <span id="any-pointer_coarse">coarse</span>
     <span id="any-pointer_fine">fine</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="any-hover">any-hover:</span>
     <span id="any-hover_none">none</span>
     <span id="any-hover_on-demand">on-demand</span>
     <span id="any-hover_hover">hover</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="light-level">light-level:</span>
     <span id="light-level_dim">dim</span>
     <span id="light-level_normal">normal</span>
     <span id="light-level_washed">washed</span>
 
   </div>
-  <div>
+  <div style="margin: 10px;">
     <span id="scripting">scripting:</span>
     <span id="scripting_none">none</span>
     <span id="scripting_initial-only">initial-only</span>
