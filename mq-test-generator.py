@@ -4,6 +4,7 @@
 from string import Template
 
 #======= Media query features =======
+#Source: http://dev.w3.org/csswg/mediaqueries-4
 class MQFeature:
     def __init__(self, feature_name, feature_values, feature_prefix = None):
         self.name = feature_name
@@ -11,12 +12,31 @@ class MQFeature:
         self.prefix = feature_prefix
 
 mq_features = [
-    MQFeature("pointer", ["none", "coarse", "fine"]),
-    MQFeature("any-pointer", ["none", "coarse", "fine"]),
-    MQFeature("hover", ["none", "on-demand", "hover"]),
-    MQFeature("any-hover", ["none", "on-demand", "hover"]),
+    MQFeature("width", ["100px", "400px", "1600px"], "min"),
+    MQFeature("height", ["200px", "800px", "3200px"], "min"),
+    MQFeature("aspect-ratio", ["4/3", "16/9", "2/1"], "min"),
+    MQFeature("orientation", ["portrait", "landscape"]),
+
+    MQFeature("resolution", ["100dpi", "200dpi", "400dpi", "800dpi"], "min"),
     MQFeature("scan", ["interlace", "progressive"]),
-    MQFeature("color", ["1", "2", "4", "8", "16"], "min"),
+    MQFeature("grid", []),
+    MQFeature("update-frequency", ["none", "slow", "normal"]),
+    MQFeature("overflow-block", ["none", "scroll", "optional-paged", "paged"]),
+    MQFeature("overflow-inline", ["none", "scroll"]),
+
+    MQFeature("color", ["1", "2", "4", "8", "16", "32"], "min"),
+    MQFeature("color-index", ["1", "2", "4", "8"], "min"),
+    MQFeature("monochrome", ["1", "2", "4", "8"], "min"),
+    MQFeature("inverted-colors", ["none", "inverted"]),
+
+    MQFeature("pointer", ["none", "coarse", "fine"]),
+    MQFeature("hover", ["none", "on-demand", "hover"]),
+    MQFeature("any-pointer", ["none", "coarse", "fine"]),
+    MQFeature("any-hover", ["none", "on-demand", "hover"]),
+
+    MQFeature("light-level", ["dim", "normal", "washed"]),
+
+    MQFeature("scripting", ["none", "initial-only", "enabled"]),
 ]
 
 #======= Templates =======
