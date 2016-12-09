@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Image panning in a scrollable page</title>
+<style>
+  #window {
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border: 2px solid black;
+    margin: 50px;
+    touch-action: pan-x pan-y;
+  }
+  
+  #map {
+    width: 700px;
+    height: 600px;
+    overflow: hidden;
+    border: 2px solid red;
+    position: relative;
+  }
+</style>
+<script>
+  function $(str) {
+    return document.getElementById(str);
+  }
+  
+  function log(msg) {
+    $("log").innerHTML += msg;
+    $("log").scrollTop = $("log").scrollHeight;
+  }
+  
+  var intervalId = 0;
+
+  function setTick() {
+    intervalId = window.setTimeout(tick, 1000);
+  }
+
+  function resetTick() {
+    window.clearInterval(intervalId);
+  }
+
+  function tick() {
+    log("&#9166;<br />");
+  }
+  
+  var pointerDownIds = [];
+  var idColors = ["green", "blue", "red", "grey"];
+  var lastX = 0;
+  var lastY = 0;
+  
+  function clampPosition(pos) {
+    return (pos < -404) ? -404 : (pos > 0) ? 0 : pos;
+  }
+
+  function logEvent(e) {
+    var type = e.type;
+    var id = e.pointerId;
+
+    var colorIdx = pointerDownIds.indexOf(id);
+    if (colorIdx == -1)
+      colorIdx = idColors.length - 1;
+
+    var color = ((type == "pointercancel") ? "" : "light") + idColors[colorIdx];
+    log("<span style=\"background: " + color + "; border: 1px\">" + type + "</span> ");
+  }
+
+  function pointerEventHandler(e) {
+    resetTick();
+
+    if (e.pointerType != "touch") {
+      console.log("dropping non-touch events");
+      return;
+    }
+
+    var mapDiv = $("map");
+    var pointerIdx = pointerDownIds.indexOf(e.pointerId);
+
+    switch(e.type) {
+      case "pointerdown":
+        pointerDownIds.push(e.pointerId);
+        logEvent(e);
+
+        mapDiv.setPointerCapture(e.pointerId);
+        if (pointerDownIds.length == 1) {
+          lastX = e.clientX;
+          lastY = e.clientY;
+        }
+        break;
+        
+      case "pointerup":
+      case "pointercancel":
+        logEvent(e);
+        if (pointerIdx != -1)
+          pointerDownIds.splice(pointerIdx, 1);
+        break;
+        
+      case "pointermove":
+        logEvent(e);
+
+        if (pointerDownIds.length >= 2 && pointerIdx == 0) {
+          var newX = e.clientX;
+          var newY = e.clientY;
+          mapDiv.style.left = clampPosition(parseFloat(mapDiv.style.left) + newX - lastX) + "px";
+          mapDiv.style.top = clampPosition(parseFloat(mapDiv.style.top) + newY - lastY) + "px";
+          lastX = newX;
+          lastY = newY;
+        }
+        break;
+    }
+    setTick();
+  }
+
+  function init() {
+    var mapDiv = $("map");
+    ["pointerdown", "pointermove", "pointerup", "pointercancel"].forEach(function(eventType){
+      mapDiv.addEventListener(eventType, pointerEventHandler);
+    });
+    mapDiv.style.left = "-200px";
+    mapDiv.style.top = "-200px";
+    setTick();
+  }
+</script>
+</head>
+<body onload="init()">
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  <div id="window">
+    <img id="map" src="images/treasure%20map%20from%20backyardphilosophy01.com.jpg"></img>
+  </div>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  Scroll the page with one finger, pan the Treasure Map with two fingers.<br>
+  <hr>
+  <div id="log">Events:</div>
+</body>
+</html>
