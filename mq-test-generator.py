@@ -69,7 +69,7 @@ feature_name_style_template="""\
 feature_value_style_template="""\
     @media all and (${prefixed_feature_name}: ${feature_value}) {
       #${prefixed_feature_name}_${feature_value} {
-        color: red; font-weight: bold; border: 1px solid red
+        color: green; font-weight: bold; border: 1px solid green
       }
     }
 """
