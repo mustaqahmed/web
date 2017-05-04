@@ -13,7 +13,7 @@
     margin: 50px;
     touch-action: pan-x pan-y;
   }
-  
+
   #map {
     width: 700px;
     height: 600px;
@@ -26,12 +26,12 @@
   function $(str) {
     return document.getElementById(str);
   }
-  
+
   function log(msg) {
     $("log").innerHTML += msg;
     $("log").scrollTop = $("log").scrollHeight;
   }
-  
+
   var intervalId = 0;
 
   function setTick() {
@@ -45,12 +45,12 @@
   function tick() {
     log("&#9166;<br />");
   }
-  
+
   var pointerDownIds = [];
   var idColors = ["green", "blue", "red", "grey"];
   var lastX = 0;
   var lastY = 0;
-  
+
   function clampPosition(pos) {
     return (pos < -404) ? -404 : (pos > 0) ? 0 : pos;
   }
@@ -89,14 +89,14 @@
           lastY = e.clientY;
         }
         break;
-        
+
       case "pointerup":
       case "pointercancel":
         logEvent(e);
         if (pointerIdx != -1)
           pointerDownIds.splice(pointerIdx, 1);
         break;
-        
+
       case "pointermove":
         logEvent(e);
 
