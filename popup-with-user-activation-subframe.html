@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>window.open with user activation: subframe</title>
+<script>
+  const domain = "http://mustaqahmed.github.io";
+  var mainWindow = null;
+
+  // Sends a message to main frame
+  function log(msg) {
+    if (!mainWindow)
+      console.log("sub: don't know main yet");
+    else
+      mainWindow.postMessage(msg, domain);
+  }
+
+  // Copied from popup-with-user-activation.html
+  function callWindowOpen(openCrossOrigin, label) {
+    var newLabel = (openCrossOrigin ? "x_" : "") + label;
+    var link = (openCrossOrigin ? "http://www.example.com" : domain)  + "/dummyxyz?label=" + newLabel;
+    var result = window.open(link);
+    log("window.open(" + newLabel + "): " + String(result));
+  }
+
+  function init() {
+    window.addEventListener("message", function(e) {
+      if (e.origin !== domain) {
+        console.log("subframe dropped bad message");
+        return;
+      }
+
+      if (!mainWindow)
+        mainWindow = e.source;
+      callWindowOpen(e.data.openCrossOrigin, e.data.label);
+    });
+  }
+</script>
+</head>
+<body onload="init()">
+  <p>This is a subframe...</p>
+  <p>...for the test popup-with-user-activation.html.</p>
+</body>
+</html>

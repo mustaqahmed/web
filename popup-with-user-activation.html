@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>window.open with user activation</title>
+<style>
+  #frame {
+    width: 400px;
+    height: 3em;
+    border: 1px solid;
+  }
+
+  #button {
+    width: 400px;
+    background-color: lightgreen;
+    border: 2px solid green;
+    padding: 5px;
+    text-align: center;
+  }
+</style>
+<script>
+  const domain = "http://mustaqahmed.github.io";
+  var eventList = ["mousedown", "mouseup", "touchstart", "touchend", "click"];
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+  function log(msg) {
+    $("log").innerHTML += (msg + "<br> ");
+  }
+
+  function callWindowOpen(openCrossOrigin, label) {
+    var newLabel = (openCrossOrigin ? "x_" : "") + label;
+    var link = (openCrossOrigin ? "http://www.example.com" : domain)  + "/dummyxyz?label=" + newLabel;
+    var result = window.open(link);
+    log("window.open(" + newLabel + "): " + String(result));
+  }
+
+  function makeOnLoadCalls() {
+    callWindowOpen(false, "onload_immediate");
+    callWindowOpen(true, "onload_immediate");
+
+    $("frame").contentWindow.postMessage(
+        {openCrossOrigin: false, label: "onload_posted"},
+        domain);
+    console.log("main frame posted a message");
+
+    $("frame").contentWindow.postMessage(
+        {openCrossOrigin: true, label: "onload_posted"},
+        domain);
+    console.log("main frame posted a message");
+  }
+
+  function init() {
+    // Log any message from subframe
+    window.addEventListener("message", function(e) {
+      if (e.origin !== domain)
+        console.log("main frame dropped bad message");
+      else
+        log("subframe: " + e.data);
+    });
+
+    eventList.forEach(function(eventName) {
+      $("button").addEventListener(eventName, function(e) {
+        if (eventName !== $("select-event").options[$("select-event").selectedIndex].value)
+          return;
+
+        var isCrossOrigin = $("is-cross-origin").checked;
+
+        switch($("trigger-method").options[$("trigger-method").selectedIndex].value) {
+          case "immediate":
+            callWindowOpen(isCrossOrigin, e.type + "_immediate1");
+            callWindowOpen(isCrossOrigin, e.type + "_immediate2");
+            break;
+
+          case "setTimeout":
+            var timeoutId = window.setTimeout(
+                callWindowOpen,
+                parseInt($("ms").value),
+                isCrossOrigin,
+                e.type + "_" + $("ms").value + "ms");
+            log("window.setTimeout: " + timeoutId);
+            break;
+
+          case "postMessage":
+            var msg = {
+              openCrossOrigin: isCrossOrigin,
+              label: e.type + "_posted"
+            };
+            $("frame").contentWindow.postMessage(msg, domain);
+            console.log("main frame posted a message");
+            break;
+        }
+      });
+
+      // Populate event options
+      var eventOptionElem = document.createElement("option");
+      eventOptionElem.value = eventOptionElem.text = eventName;
+      $("select-event").add(eventOptionElem, null);
+    });
+
+    makeOnLoadCalls();
+  }
+</script>
+</head>
+<body onload="init()">
+  <p>
+    <label>Triggering event:</label>
+    <select id="select-event"></select>
+  </p>
+  <p>
+    <label>Popup link cross-origin?</label>
+    <input id="is-cross-origin" type="checkbox"></input>
+  </p>
+  <p>
+    <label>Trigger method:</label>
+    <select id="trigger-method">
+      <option value="immediate">Immediate event handler calls</option>
+      <option value="setTimeout">Through setTimeout with delay =</option>
+      <option value="postMessage">Through postMessage to subframe</option>
+    </select>
+    <input id="ms" type="text" value="1001" style="width: 6ex"></input>ms
+  </p>
+  <p>
+    <div id="button">Click/tap here to trigger</div>
+  </p>
+  <iframe id="frame" src="popup-with-user-activation-subframe.html" sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
+  <div id="log"><b>Log:</b><br></div>
+</body>
+</html>
