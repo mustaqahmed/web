@@ -29,6 +29,12 @@
     $("log").innerHTML += (msg + "<br> ");
   }
 
+  function jank(ms) {
+    var start = Date.now();
+    while(Date.now() < start + ms)
+      ;
+  }
+
   function callWindowOpen(openCrossOrigin, label) {
     var newLabel = (openCrossOrigin ? "x_" : "") + label;
     var link = (openCrossOrigin ? "http://www.example.com" : domain)  + "/dummyxyz?label=" + newLabel;
@@ -66,6 +72,7 @@
           return;
 
         var isCrossOrigin = $("is-cross-origin").checked;
+        var delayMs = parseInt($("ms").value);
 
         switch($("trigger-method").options[$("trigger-method").selectedIndex].value) {
           case "immediate":
@@ -73,16 +80,31 @@
             callWindowOpen(isCrossOrigin, e.type + "_immediate2");
             break;
 
-          case "setTimeout":
+          case "jank":
+            jank(delayMs);
+            callWindowOpen(isCrossOrigin, e.type + "_jank_" + delayMs + "ms");
+            break;
+
+          case "settimeout":
             var timeoutId = window.setTimeout(
                 callWindowOpen,
-                parseInt($("ms").value),
+                delayMs,
                 isCrossOrigin,
-                e.type + "_" + $("ms").value + "ms");
+                e.type + "_timeout_" + delayMs + "ms");
             log("window.setTimeout: " + timeoutId);
             break;
 
-          case "postMessage":
+          case "promise":
+            var promise = new Promise(function(resolve) {
+              jank(delayMs);
+              resolve();
+            });
+            promise.then(function() {
+              callWindowOpen(isCrossOrigin, e.type + "_promise_" + delayMs + "ms");
+            });
+            break;
+
+          case "postmessage":
             var msg = {
               openCrossOrigin: isCrossOrigin,
               label: e.type + "_posted"
@@ -116,8 +138,10 @@
     <label>Trigger method:</label>
     <select id="trigger-method">
       <option value="immediate">Immediate event handler calls</option>
-      <option value="setTimeout">Through setTimeout with delay =</option>
-      <option value="postMessage">Through postMessage to subframe</option>
+      <option value="jank">Event handler call with jank =</option>
+      <option value="settimeout">Through setTimeout with delay =</option>
+      <option value="promise">Through Promise with jank =</option>
+      <option value="postmessage">Through postMessage to subframe</option>
     </select>
     <input id="ms" type="text" value="1001" style="width: 6ex"></input>ms
   </p>
