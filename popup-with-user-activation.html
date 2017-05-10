@@ -39,7 +39,7 @@
     var newLabel = (openCrossOrigin ? "x_" : "") + label;
     var link = (openCrossOrigin ? "http://www.example.com" : domain)  + "/dummyxyz?label=" + newLabel;
     var result = window.open(link);
-    log("window.open(" + newLabel + "): " + String(result));
+    log("window.open(" + newLabel + "): " + (result? "success" : "failure"));
   }
 
   function makeOnLoadCalls() {
