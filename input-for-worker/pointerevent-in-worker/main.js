@@ -29,7 +29,7 @@ function eventForwarder(e) {
     eventHandlerWorker.postMessage(internalMessage);
 }
 
-function isEventhandlerPolyfillMessageFromWorker(msg, eventTarget) {
+function isEventhandlerPolyfillMessageFromWorker(msg) {
     if (!msg.data._task_)
         return false;
 
@@ -55,13 +55,19 @@ var result = document.getElementById("result");
 
 if (window.Worker) {
     var myWorker = new Worker("worker.js");
+    var target = document.getElementById("target");
 
-    setupEventhandlerPolyfillOnMain(myWorker,
-                                    document.getElementById("target"));
+    setupEventhandlerPolyfillOnMain(myWorker, target);
 
     myWorker.addEventListener("message", function(msg) {
-        if (isEventhandlerPolyfillMessageFromWorker(msg, target))
+        // All incoming messages must be checked first.
+        if (isEventhandlerPolyfillMessageFromWorker(msg))
             return;
         result.textContent = msg.data;
+    });
+
+    // This extra ping to worker shows that regular messages still works.
+    target.addEventListener("mouseenter", function(e) {
+        myWorker.postMessage("ping from main");
     });
 }

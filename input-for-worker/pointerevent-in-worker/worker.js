@@ -13,28 +13,26 @@ function updateMainThread(x, y) {
                 + " loc=(" + x + "," + y + ")");
 }
 
-addEventListener("message", function(msg) {
-    console.log("User's 'message' handler in worker");
-});
-
 addEventListener("mousedown", function(e) {
-    console.log("User's 'mousedown' handler in worker");
     downs++;
     updateMainThread(e.clientX, e.clientY);
 });
 
 addEventListener("mouseup", function(e) {
-    console.log("User's 'mouseup' handler in worker");
     ups++;
     updateMainThread(e.clientX, e.clientY);
 });
 
 addEventListener("mousemove", function(e) {
-    console.log("User's 'mousemove' handler in worker");
     updateMainThread(e.clientX, e.clientY);
 });
 
-// Additional handlers to check multiple handler invocation order
+// Additional event listeners show that (a) multiple handler invocation and (b)
+// regular message reception work.
+
+addEventListener("message", function(msg) {
+    console.log("User's 'message' handler in worker");
+});
 
 addEventListener("message", function(msg) {
     console.log("User's 'message' handler#2 in worker");
