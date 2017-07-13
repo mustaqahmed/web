@@ -61,12 +61,12 @@ function setupEventhandlerPolyfillOnWorker() {
 
 setupEventhandlerPolyfillOnWorker();
 
-var pointerdowns = 0;
-var pointerups = 0;
+var downs = 0;
+var ups = 0;
 
 function updateMainThread(x, y) {
-    postMessage("#downs=" + pointerdowns
-                + " #ups=" + pointerups
+    postMessage("#downs=" + downs
+                + " #ups=" + ups
                 + " loc=(" + x + "," + y + ")");
 }
 
@@ -74,20 +74,20 @@ addEventListener("message", function(msg) {
     console.log("User's worker 'message' handler");
 });
 
-addEventListener("pointerdown", function(e) {
-    console.log("User's worker 'pointerdown' handler");
-    pointerdowns++;
+addEventListener("mousedown", function(e) {
+    console.log("User's worker 'mousedown' handler");
+    downs++;
     updateMainThread(e.clientX, e.clientY);
 });
 
-addEventListener("pointerup", function(e) {
-    console.log("User's worker 'pointerup' handler");
-    pointerups++;
+addEventListener("mouseup", function(e) {
+    console.log("User's worker 'mouseup' handler");
+    ups++;
     updateMainThread(e.clientX, e.clientY);
 });
 
-addEventListener("pointermove", function(e) {
-    console.log("User's worker 'pointermove' handler");
+addEventListener("mousemove", function(e) {
+    console.log("User's worker 'mousemove' handler");
     updateMainThread(e.clientX, e.clientY);
 });
 
@@ -97,6 +97,6 @@ addEventListener("message", function(msg) {
     console.log("User's worker 'message' handler 2");
 });
 
-addEventListener("pointerdown", function(e) {
-    console.log("User's worker 'pointerdown' handler 2");
+addEventListener("mousedown", function(e) {
+    console.log("User's worker 'mousedown' handler 2");
 });
