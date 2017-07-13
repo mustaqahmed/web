@@ -1,6 +1,11 @@
-// ===================================================================
-// Eventhandler Polyfill for main
-// ===================================================================
+/*********************************************************************
+  Main thread code.
+*********************************************************************/
+
+
+// -------------------------------------------------------------------
+// Polyfill code
+// -------------------------------------------------------------------
 
 // Assumes a single Worker object and a single EventTarget in the main
 // thread.
@@ -21,7 +26,7 @@ function eventForwarder(e) {
     var internalMessage = {};
     internalMessage._task_ = "parseAsEvent";
     internalMessage.trimmedEventData = trimmedEvent(e);
-	eventHandlerWorker.postMessage(internalMessage);
+    eventHandlerWorker.postMessage(internalMessage);
 }
 
 function isEventhandlerPolyfillMessageFromWorker(msg, eventTarget) {
@@ -29,7 +34,7 @@ function isEventhandlerPolyfillMessageFromWorker(msg, eventTarget) {
         return false;
 
     if (msg.data._task_ === "forwardEvents" && msg.data.type) {
-		mainThreadEventTarget.addEventListener(
+        mainThreadEventTarget.addEventListener(
             msg.data.type, eventForwarder);
     }
 
@@ -42,21 +47,21 @@ function setupEventhandlerPolyfillOnMain(worker, target) {
 }
 
 
-// ===================================================================
-// User code for main
-// ===================================================================
+// -------------------------------------------------------------------
+// User code
+// -------------------------------------------------------------------
 
 var result = document.getElementById("result");
 
 if (window.Worker) {
-	var myWorker = new Worker("worker.js");
+    var myWorker = new Worker("worker.js");
 
     setupEventhandlerPolyfillOnMain(myWorker,
                                     document.getElementById("target"));
 
-	myWorker.addEventListener("message", function(msg) {
+    myWorker.addEventListener("message", function(msg) {
         if (isEventhandlerPolyfillMessageFromWorker(msg, target))
             return;
-		result.textContent = msg.data;
-	});
+        result.textContent = msg.data;
+    });
 }
