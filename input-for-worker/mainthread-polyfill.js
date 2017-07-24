@@ -1,15 +1,5 @@
 /*******************************************************************************
-
-  mainthread-polyfill.js: Mainthread polyfill to enable Worker-side event
-  handling
-
-  - Any Worker thread that wants to handle input events must use
-    worker-polyfill.js.
-
-  - The method Window.associateEventTargetToWorker in this polyfill must be
-    called before: (i) the main thread Worker object adds any event handlers for
-    "message" and (ii) the Worker thread adds any non-message event handlers.
-
+  Mainthread polyfill to enable Worker-side event handling
 *******************************************************************************/
 
 (function(scope) {
