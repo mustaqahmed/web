@@ -1,6 +1,12 @@
-/*********************************************************************
-  Polyfill for Worker-side event handling.
-*********************************************************************/
+/*******************************************************************************
+
+  worker-polyfill.js: Polyfill for Worker-side event handling
+
+  The main thread must call associateEventTargetToWorker (defined in
+  mainthread-polyfill.js) before any non-message event handlers are added in the
+  corresponding Worker thread.
+
+*******************************************************************************/
 
 (function() {
     // A map from event type (string) to list of listener functions

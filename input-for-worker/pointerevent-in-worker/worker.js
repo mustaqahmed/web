@@ -2,7 +2,7 @@
   Worker-side user code.
 *********************************************************************/
 
-importScripts("../event-handler-worker-polyfill.js");
+importScripts("../worker-polyfill.js");
 
 var downs = 0;
 var ups = 0;
@@ -26,6 +26,7 @@ addEventListener("mouseup", function(e) {
 addEventListener("mousemove", function(e) {
     updateMainThread(e.clientX, e.clientY);
 });
+
 
 // Additional event listeners show that (a) multiple handler invocation and (b)
 // regular message reception work.
