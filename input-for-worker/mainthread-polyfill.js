@@ -38,7 +38,7 @@
 
         workerForTarget[target] = worker;
 
-        myWorker.addEventListener("message", function(msg) {
+        worker.addEventListener("message", function(msg) {
             if (isEventForwardingRequestFromWorker(msg)) {
                 target.addEventListener(msg.data.type, eventForwarder);
                 msg.stopImmediatePropagation();
