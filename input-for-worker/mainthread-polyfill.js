@@ -4,7 +4,7 @@
 
 (function(scope) {
     // A map from event target to Worker
-    var workerForTarget = {};
+    var workerForTarget = new Map();
 
     function trimmedEvent(event) {
         const allowedAttributes = ["boolean", "number", "string"];
@@ -17,7 +17,7 @@
     }
 
     function eventForwarder(e) {
-        var eventHandlerWorker = workerForTarget[e.currentTarget];
+        var eventHandlerWorker = workerForTarget.get(e.currentTarget);
         if (!(eventHandlerWorker instanceof Worker))
             throw "eventForwarder: bad target or worker";
 
@@ -33,10 +33,10 @@
     }
 
     function associateEventTargetToWorker(target, worker) {
-        if (workerForTarget[target])
+        if (workerForTarget.get(target))
             throw "associateEventTargetToWorker: duplicate associations";
 
-        workerForTarget[target] = worker;
+        workerForTarget.set(target, worker);
 
         worker.addEventListener("message", function(msg) {
             if (isEventForwardingRequestFromWorker(msg)) {
