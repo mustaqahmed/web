@@ -1,6 +1,6 @@
-/*********************************************************************
+/*******************************************************************************
   Worker-side user code.
-*********************************************************************/
+*******************************************************************************/
 
 importScripts("../worker-polyfill.js");
 
@@ -26,34 +26,40 @@ function updateMainThread() {
     postMessage(image, [image]);
 }
 
-addEventListener("message", function(msg) {
-    console.log(msg.data);
-    var context = offscreenCanvas.getContext("2d");
-    var data = msg.data;
+function initializeDrawingThread() {
+    // Allow setting fillStyle and transform through postMessages.
+    addEventListener("message", function(msg) {
+        var context = offscreenCanvas.getContext("2d");
+        var data = msg.data;
 
-    if (data.fillStyle)
-        context.fillStyle = data.fillStyle;
-    if (data.transform)
-        context.transform(data.transform.a,
-                          data.transform.b,
-                          data.transform.c,
-                          data.transform.d,
-                          data.transform.e,
-                          data.transform.f);
-});
+        if (data.fillStyle)
+            context.fillStyle = data.fillStyle;
+        if (data.transform)
+            context.transform(data.transform.a,
+                              data.transform.b,
+                              data.transform.c,
+                              data.transform.d,
+                              data.transform.e,
+                              data.transform.f);
+    });
 
-addEventListener("pointerdown", function(e) {
-    drawPoint(e.clientX, e.clientY);
-    updateMainThread();
-});
 
-addEventListener("pointermove", function(e) {
-    if (e.buttons) {
+    // Add event handlers for drawing.
+    addEventListener("pointerdown", function(e) {
         drawPoint(e.clientX, e.clientY);
         updateMainThread();
-    }
-});
+    });
 
-addEventListener("pointerup", function(e) {
-    updateMainThread();
-});
+    addEventListener("pointermove", function(e) {
+        if (e.buttons) {
+            drawPoint(e.clientX, e.clientY);
+            updateMainThread();
+        }
+    });
+
+    addEventListener("pointerup", function(e) {
+        updateMainThread();
+    });
+}
+
+initializeDrawingThread();

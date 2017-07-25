@@ -1,6 +1,6 @@
-/*********************************************************************
+/*******************************************************************************
   Main thread user code.
-*********************************************************************/
+*******************************************************************************/
 
 function setupPrimaryWorker() {
     var primaryCanvas = document.getElementById("canvas-primary");
@@ -11,6 +11,7 @@ function setupPrimaryWorker() {
         {
             fillStyle: "hsla(120, 100%, 40%, 0.5)"
         });
+
     primaryWorker.addEventListener("message", function(msg) {
         var context = primaryCanvas.getContext('bitmaprenderer');
         context.transferFromImageBitmap(msg.data);
