@@ -2,14 +2,15 @@
   Main thread user code.
 *******************************************************************************/
 
+var primaryCanvas = document.getElementById("canvas-primary");
+
 function setupPrimaryWorker() {
-    var primaryCanvas = document.getElementById("canvas-primary");
     var primaryWorker = new Worker("worker.js");
     associateEventTargetToWorker(primaryCanvas, primaryWorker);
 
     primaryWorker.postMessage(
         {
-            fillStyle: "hsla(120, 100%, 40%, 0.4)"
+            fillStyle: "hsla(120, 100%, 30%, 0.4)"
         });
 
     primaryWorker.addEventListener("message", function(msg) {
@@ -19,23 +20,26 @@ function setupPrimaryWorker() {
 }
 
 function setupMirrorWorker() {
-    var mirrorCanvas = document.getElementById("canvas-mirror");
     var mirrorWorker = new Worker("worker.js");
-    associateEventTargetToWorker(mirrorCanvas, mirrorWorker);
+
+    // Note that mirrorWorker's input comes from primaryCanvas.
+    associateEventTargetToWorker(primaryCanvas, mirrorWorker);
 
     mirrorWorker.postMessage(
         {
-            fillStyle: "hsla(240, 100%, 40%, 0.4)",
+            fillStyle: "hsla(120, 100%, 70%, 0.4)",
             transform: {
                 a: 1,
                 b: 0,
                 c: 0,
                 d: -1,
                 e: 0,
-                f: 300
+                f: 150
             }
         });
+
     mirrorWorker.addEventListener("message", function(msg) {
+        var mirrorCanvas = document.getElementById("canvas-mirror");
         var context = mirrorCanvas.getContext('bitmaprenderer');
         context.transferFromImageBitmap(msg.data);
     });

@@ -3,8 +3,8 @@
 *******************************************************************************/
 
 (function(scope) {
-    // A map from event target to Worker
-    var workerForTarget = new Map();
+    // A map from event target to a list of Worker objects.
+    var workersForTarget = new Map();
 
     function trimmedEvent(event) {
         const allowedAttributes = ["boolean", "number", "string"];
@@ -17,14 +17,15 @@
     }
 
     function eventForwarder(e) {
-        var eventHandlerWorker = workerForTarget.get(e.currentTarget);
-        if (!(eventHandlerWorker instanceof Worker))
-            throw "eventForwarder: bad target or worker";
+        workersForTarget.get(e.currentTarget).forEach(function(eventHandlerWorker) {
+            if (!(eventHandlerWorker instanceof Worker))
+                throw "eventForwarder: bad target or worker";
 
-        var internalMessage = {};
-        internalMessage._task_ = "parseAsEvent";
-        internalMessage.trimmedEventData = trimmedEvent(e);
-        eventHandlerWorker.postMessage(internalMessage);
+            var internalMessage = {};
+            internalMessage._task_ = "parseAsEvent";
+            internalMessage.trimmedEventData = trimmedEvent(e);
+            eventHandlerWorker.postMessage(internalMessage);
+        });
     }
 
     function isEventForwardingRequestFromWorker(msg) {
@@ -33,10 +34,16 @@
     }
 
     function associateEventTargetToWorker(target, worker) {
-        if (workerForTarget.get(target))
-            throw "associateEventTargetToWorker: duplicate associations";
+        var eventHandlerWorkers = workersForTarget.get(target);
+        if (!eventHandlerWorkers) {
+            eventHandlerWorkers = [];
+            workersForTarget.set(target, eventHandlerWorkers);
+        } else if (eventHandlerWorkers.includes(worker)) {
+            // Avoid adding redundant event forwarders.
+            return;
+        }
 
-        workerForTarget.set(target, worker);
+        eventHandlerWorkers.push(worker);
 
         worker.addEventListener("message", function(msg) {
             if (isEventForwardingRequestFromWorker(msg)) {

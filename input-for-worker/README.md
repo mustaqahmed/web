@@ -21,8 +21,10 @@ performance benefit with respect to events.
 
 - [events-in-offscreen-canvas](http://mustaqahmed.github.io/web/input-for-worker/events-in-offscreen-canvas/):
   Two copies of the same Worker code takes care of two `OffscreenCanvas`
-  instances, each drawing a point for the each `PointerEvent` coordinates.  This
-  works in Chrome only, with the `--enable-experimental-canvas-features` flag.
+  instances, each doing its own transform.  Note that the Worker for the mirror
+  takes its input from the primary canvas while draws on the second canvas.
+  This demo works in Chrome only, with the
+  `--enable-experimental-canvas-features` flag.
 
 #### Polyfill usage
 - The polyfill has two parts: `mainthread-polyfill.js` is loaded in the main
