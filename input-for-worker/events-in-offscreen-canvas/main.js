@@ -9,7 +9,7 @@ function setupPrimaryWorker() {
 
     primaryWorker.postMessage(
         {
-            fillStyle: "hsla(120, 100%, 40%, 0.5)"
+            fillStyle: "hsla(120, 100%, 40%, 0.4)"
         });
 
     primaryWorker.addEventListener("message", function(msg) {
@@ -25,7 +25,7 @@ function setupMirrorWorker() {
 
     mirrorWorker.postMessage(
         {
-            fillStyle: "hsla(240, 100%, 40%, 0.5)",
+            fillStyle: "hsla(240, 100%, 40%, 0.4)",
             transform: {
                 a: 1,
                 b: 0,

@@ -22,8 +22,7 @@ function drawPoint(x, y) {
 // TODO: Need a way to preserve the drawing in offscreenCanvas, at least for
 // pointerdown & pointermove.
 function updateMainThread() {
-    var image = offscreenCanvas.transferToImageBitmap();
-    postMessage(image, [image]);
+    createImageBitmap(offscreenCanvas).then(image => {postMessage(image, [image])});
 }
 
 function initializeDrawingThread() {

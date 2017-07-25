@@ -24,9 +24,6 @@ performance benefit with respect to events.
   instances, each drawing a point for the each `PointerEvent` coordinates.  This
   works in Chrome only, with the `--enable-experimental-canvas-features` flag.
 
-  Caveat: wanted to draw a polyline along the mouse drag path but
-  `offscreenCanvas.transferToImageBitmap()` seems to empty the offscreen canvas!
-
 #### Polyfill usage
 - The polyfill has two parts: `mainthread-polyfill.js` is loaded in the main
   thread while `worker-polyfill.js` is loaded in the Worker threads that want to
