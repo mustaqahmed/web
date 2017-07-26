@@ -4,23 +4,21 @@
 
 importScripts("../worker-polyfill.js");
 
-var offscreenCanvas = new OffscreenCanvas(300, 150);
+var context;
 
-function drawPoint(x, y) {
-    var context = offscreenCanvas.getContext("2d");
-    const radius = 5;
-
-    context.save();
-    context.translate(x, y);
-    context.beginPath();
-    context.arc(0, 0, radius, 0, 2.0 * Math.PI, false);
-    context.closePath();
-    context.fill();
-    context.restore();
+function assertContext() {
+    if (!context)
+        throw "OffscreenCanvas is not initialized";
 }
 
-function updateMainThread() {
-    createImageBitmap(offscreenCanvas).then(img => {postMessage(img)});
+function drawPoint(x, y) {
+    assertContext();
+
+    context.beginPath();
+    context.arc(x, y, 5, 0, 2.0 * Math.PI, false);
+    context.closePath();
+    context.fill();
+    context.commit();
 }
 
 function initialize() {
@@ -28,18 +26,23 @@ function initialize() {
     addEventListener("message", msg => {
         var data = msg.data;
 
+        if (data.canvas) {
+            context = data.canvas.getContext("2d");
+        }
+
         if (data.fillStyle) {
-            offscreenCanvas.getContext("2d").fillStyle = data.fillStyle;
+            assertContext();
+            context.fillStyle = data.fillStyle;
         }
 
         if (data.transform) {
-            offscreenCanvas.getContext("2d").transform(
-                data.transform.a,
-                data.transform.b,
-                data.transform.c,
-                data.transform.d,
-                data.transform.e,
-                data.transform.f);
+            assertContext();
+            context.transform(data.transform.a,
+                              data.transform.b,
+                              data.transform.c,
+                              data.transform.d,
+                              data.transform.e,
+                              data.transform.f);
         }
     });
 
@@ -47,18 +50,15 @@ function initialize() {
     // Add event handlers for drawing.
     addEventListener("pointerdown", e => {
         drawPoint(e.clientX, e.clientY);
-        updateMainThread();
     });
 
     addEventListener("pointermove", e => {
-        if (e.buttons) {
+        if (e.buttons)
             drawPoint(e.clientX, e.clientY);
-            updateMainThread();
-        }
     });
 
     addEventListener("pointerup", e => {
-        updateMainThread();
+        drawPoint(e.clientX, e.clientY);
     });
 }
 

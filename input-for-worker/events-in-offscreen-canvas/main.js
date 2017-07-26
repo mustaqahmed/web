@@ -8,15 +8,13 @@ function setupPrimaryWorker() {
     var primaryWorker = new Worker("worker.js");
     associateEventTargetToWorker(primaryCanvas, primaryWorker);
 
+    var offscreenPrimaryCanvas = primaryCanvas.transferControlToOffscreen();
     primaryWorker.postMessage(
         {
+            canvas: offscreenPrimaryCanvas,
             fillStyle: "hsla(120, 100%, 30%, 0.4)"
-        });
-
-    primaryWorker.addEventListener("message", msg => {
-        var context = primaryCanvas.getContext('bitmaprenderer');
-        context.transferFromImageBitmap(msg.data);
-    });
+        },
+        [offscreenPrimaryCanvas]);
 }
 
 function setupMirrorWorker() {
@@ -25,8 +23,11 @@ function setupMirrorWorker() {
     // Note that mirrorWorker's input comes from primaryCanvas.
     associateEventTargetToWorker(primaryCanvas, mirrorWorker);
 
+    var mirrorCanvas = document.getElementById("canvas-mirror");
+    var offscreenMirrorCanvas = mirrorCanvas.transferControlToOffscreen();
     mirrorWorker.postMessage(
         {
+            canvas: offscreenMirrorCanvas,
             fillStyle: "hsla(120, 100%, 70%, 0.4)",
             transform: {
                 a: 1,
@@ -36,13 +37,8 @@ function setupMirrorWorker() {
                 e: 0,
                 f: 150
             }
-        });
-
-    mirrorWorker.addEventListener("message", msg => {
-        var mirrorCanvas = document.getElementById("canvas-mirror");
-        var context = mirrorCanvas.getContext('bitmaprenderer');
-        context.transferFromImageBitmap(msg.data);
-    });
+        },
+        [offscreenMirrorCanvas]);
 }
 
 setupPrimaryWorker();
