@@ -19,46 +19,47 @@ function drawPoint(x, y) {
     context.restore();
 }
 
-// TODO: Need a way to preserve the drawing in offscreenCanvas, at least for
-// pointerdown & pointermove.
 function updateMainThread() {
-    createImageBitmap(offscreenCanvas).then(image => {postMessage(image, [image])});
+    createImageBitmap(offscreenCanvas).then(img => {postMessage(img)});
 }
 
-function initializeDrawingThread() {
+function initialize() {
     // Allow setting fillStyle and transform through postMessages.
-    addEventListener("message", function(msg) {
-        var context = offscreenCanvas.getContext("2d");
+    addEventListener("message", msg => {
         var data = msg.data;
 
-        if (data.fillStyle)
-            context.fillStyle = data.fillStyle;
-        if (data.transform)
-            context.transform(data.transform.a,
-                              data.transform.b,
-                              data.transform.c,
-                              data.transform.d,
-                              data.transform.e,
-                              data.transform.f);
+        if (data.fillStyle) {
+            offscreenCanvas.getContext("2d").fillStyle = data.fillStyle;
+        }
+
+        if (data.transform) {
+            offscreenCanvas.getContext("2d").transform(
+                data.transform.a,
+                data.transform.b,
+                data.transform.c,
+                data.transform.d,
+                data.transform.e,
+                data.transform.f);
+        }
     });
 
 
     // Add event handlers for drawing.
-    addEventListener("pointerdown", function(e) {
+    addEventListener("pointerdown", e => {
         drawPoint(e.clientX, e.clientY);
         updateMainThread();
     });
 
-    addEventListener("pointermove", function(e) {
+    addEventListener("pointermove", e => {
         if (e.buttons) {
             drawPoint(e.clientX, e.clientY);
             updateMainThread();
         }
     });
 
-    addEventListener("pointerup", function(e) {
+    addEventListener("pointerup", e => {
         updateMainThread();
     });
 }
 
-initializeDrawingThread();
+initialize();

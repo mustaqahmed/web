@@ -2,7 +2,7 @@
   Mainthread polyfill to enable Worker-side event handling
 *******************************************************************************/
 
-(function(scope) {
+(scope => {
     // A map from event target to a list of Worker objects.
     var workersForTarget = new Map();
 
@@ -17,7 +17,7 @@
     }
 
     function eventForwarder(e) {
-        workersForTarget.get(e.currentTarget).forEach(function(eventHandlerWorker) {
+        workersForTarget.get(e.currentTarget).forEach(eventHandlerWorker => {
             if (!(eventHandlerWorker instanceof Worker))
                 throw "eventForwarder: bad target or worker";
 
@@ -45,7 +45,7 @@
 
         eventHandlerWorkers.push(worker);
 
-        worker.addEventListener("message", function(msg) {
+        worker.addEventListener("message", msg => {
             if (isEventForwardingRequestFromWorker(msg)) {
                 target.addEventListener(msg.data.type, eventForwarder);
                 msg.stopImmediatePropagation();

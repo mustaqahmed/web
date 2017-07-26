@@ -9,12 +9,12 @@ if (window.Worker) {
 
     associateEventTargetToWorker(target, myWorker);
 
-    myWorker.addEventListener("message", function(msg) {
+    myWorker.addEventListener("message", msg => {
         result.textContent = msg.data;
     });
 
     // Regular messages to Workers still work.
-    target.addEventListener("mouseenter", function(e) {
+    target.addEventListener("mouseenter", e => {
         myWorker.postMessage("ping from main");
     });
 }

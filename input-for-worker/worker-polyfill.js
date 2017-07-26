@@ -2,7 +2,7 @@
   worker-polyfill.js: Polyfill for Worker-side event handling
 *******************************************************************************/
 
-(function() {
+(() => {
     // A map from event type (string) to list of listener functions
     var eventHandlerRegistry = {};
 
@@ -37,7 +37,7 @@
         }
 
         if (eventHandlerRegistry[parsedType]) {
-            eventHandlerRegistry[parsedType].forEach(function(handler) {
+            eventHandlerRegistry[parsedType].forEach(handler => {
                 handler(parsedData);
             });
         }

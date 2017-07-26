@@ -13,7 +13,7 @@ function setupPrimaryWorker() {
             fillStyle: "hsla(120, 100%, 30%, 0.4)"
         });
 
-    primaryWorker.addEventListener("message", function(msg) {
+    primaryWorker.addEventListener("message", msg => {
         var context = primaryCanvas.getContext('bitmaprenderer');
         context.transferFromImageBitmap(msg.data);
     });
@@ -38,7 +38,7 @@ function setupMirrorWorker() {
             }
         });
 
-    mirrorWorker.addEventListener("message", function(msg) {
+    mirrorWorker.addEventListener("message", msg => {
         var mirrorCanvas = document.getElementById("canvas-mirror");
         var context = mirrorCanvas.getContext('bitmaprenderer');
         context.transferFromImageBitmap(msg.data);
