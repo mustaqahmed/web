@@ -7,7 +7,7 @@ if (window.Worker) {
     var target = document.getElementById("target");
     var result = document.getElementById("result");
 
-    associateEventTargetToWorker(target, myWorker);
+    myWorker.bindEventTarget(target);
 
     myWorker.addEventListener("message", msg => {
         result.textContent = msg.data;

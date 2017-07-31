@@ -31,8 +31,7 @@ performance benefit with respect to events.
   thread while `worker-polyfill.js` is loaded in the Worker threads that want to
   handle input events.
 
-- The main thread must call Window.associateEventTargetToWorker for a Worker
-  object before:
+- The main thread must call `worker.bindEventTarget(target)` object before:
   - the main thread Worker object adds any event handlers for "message" events,
     and
   - the corresponding Worker thread adds any non-message event handlers.

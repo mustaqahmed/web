@@ -6,7 +6,7 @@ var primaryCanvas = document.getElementById("canvas-primary");
 
 function setupPrimaryWorker() {
     var primaryWorker = new Worker("worker.js");
-    associateEventTargetToWorker(primaryCanvas, primaryWorker);
+    primaryWorker.bindEventTarget(primaryCanvas);
 
     var offscreenPrimaryCanvas = primaryCanvas.transferControlToOffscreen();
     primaryWorker.postMessage(
@@ -21,7 +21,7 @@ function setupMirrorWorker() {
     var mirrorWorker = new Worker("worker.js");
 
     // Note that mirrorWorker's input comes from primaryCanvas.
-    associateEventTargetToWorker(primaryCanvas, mirrorWorker);
+    mirrorWorker.bindEventTarget(primaryCanvas);
 
     var mirrorCanvas = document.getElementById("canvas-mirror");
     var offscreenMirrorCanvas = mirrorCanvas.transferControlToOffscreen();

@@ -33,19 +33,19 @@
             && msg.data.type;
     }
 
-    function associateEventTargetToWorker(target, worker) {
+    function bindEventTarget(target) {
         var eventHandlerWorkers = workersForTarget.get(target);
         if (!eventHandlerWorkers) {
             eventHandlerWorkers = [];
             workersForTarget.set(target, eventHandlerWorkers);
-        } else if (eventHandlerWorkers.includes(worker)) {
+        } else if (eventHandlerWorkers.includes(this)) {
             // Avoid adding redundant event forwarders.
             return;
         }
 
-        eventHandlerWorkers.push(worker);
+        eventHandlerWorkers.push(this);
 
-        worker.addEventListener("message", msg => {
+        this.addEventListener("message", msg => {
             if (isEventForwardingRequestFromWorker(msg)) {
                 target.addEventListener(msg.data.type, eventForwarder);
                 msg.stopImmediatePropagation();
@@ -54,9 +54,11 @@
     }
 
     function initialize() {
-        if (scope.associateEventTargetToWorker)
+        if (!scope.Worker)
             return;
-        scope.associateEventTargetToWorker = associateEventTargetToWorker;
+        if (scope.Worker.prototype.bindEventTarget)
+            return;
+        scope.Worker.prototype.bindEventTarget = bindEventTarget;
     }
 
     initialize();
