@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>window.open with simulated click</title>
+<script>
+  const domain = "localhost";
+  var crossOrigin = false;
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+  function log(msg) {
+    $("log").innerHTML += (msg + "<br> ");
+  }
+
+  function jank(ms) {
+    var start = Date.now();
+    while(Date.now() < start + ms)
+      ;
+  }
+
+  function callWindowOpen(openCrossOrigin, label) {
+    var newLabel = (openCrossOrigin ? "x_" : "") + label;
+    var link = (openCrossOrigin ? "http://www.example.com" : domain)  + "/dummyxyz?label=" + newLabel;
+    var result = window.open(link);
+    log("window.open(" + newLabel + "): " + (result? "success" : "failure"));
+  }
+
+  function init() {
+    var eventList = ["mousedown", "mouseup", "click"];
+    eventList.forEach(function(eventName) {
+      $("link").addEventListener(eventName, function(e) {
+        log(e.type);
+        if (e.type === "click") {
+          callWindowOpen(crossOrigin, "" + e.isTrusted);
+	  e.preventDefault();
+        }
+      });
+    });
+
+    crossOrigin = false;
+    jank(2000);
+    $("link").click();
+
+    crossOrigin = true;
+    jank(2000);
+    $("link").click();
+
+    log("Done simulating.");
+  }
+</script>
+</head>
+<body onload="init()">
+  <p>Wait for 4 seconds, this page will try to popup with simulated clicks.</p>
+  <a href="#" id="link">A link</a>
+  <div id="log"><b>Log:</b><br></div>
+</body>
+</html>
