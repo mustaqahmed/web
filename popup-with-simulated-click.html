@@ -14,12 +14,6 @@
     $("log").innerHTML += (msg + "<br> ");
   }
 
-  function jank(ms) {
-    var start = Date.now();
-    while(Date.now() < start + ms)
-      ;
-  }
-
   function callWindowOpen(openCrossOrigin, label) {
     var newLabel = (openCrossOrigin ? "x_" : "") + label;
     var link = (openCrossOrigin ? "http://www.example.com" : domain)  + "/dummyxyz?label=" + newLabel;
@@ -31,23 +25,24 @@
     var eventList = ["mousedown", "mouseup", "click"];
     eventList.forEach(function(eventName) {
       $("link").addEventListener(eventName, function(e) {
-        log(e.type);
+        log("Handling " + e.type);
         if (e.type === "click") {
-          callWindowOpen(crossOrigin, "" + e.isTrusted);
+          callWindowOpen(crossOrigin, "trusted_event=" + e.isTrusted);
 	  e.preventDefault();
         }
       });
     });
 
-    crossOrigin = false;
-    jank(2000);
-    $("link").click();
+    window.setTimeout(function() {
+      crossOrigin = false;
+      $("link").click();
+    }, 2000);
 
-    crossOrigin = true;
-    jank(2000);
-    $("link").click();
-
-    log("Done simulating.");
+    window.setTimeout(function() {
+      crossOrigin = true;
+      $("link").click();
+      log("Done simulating.");
+    }, 4000);
   }
 </script>
 </head>
