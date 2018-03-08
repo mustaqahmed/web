@@ -6,21 +6,18 @@
   <script src="common.js"></script>
 </head>
 <body onload="commonInit('a')">
-  <p>Test user activation propagation in frame tree:
+  <div class="instruction">
+    <b>Test user activation propagation in frame tree:</b>
     turn on popups in any frame,
-    then "activate" any frame,
-    then check the logs.
-  </p>
-
-  <hr>
+    then click on any frame to "activate" it,
+    then check the logs for popup success/failure.
+  </div>
 
   <h1 id="frame-label">Frame</h1>
 
   <p>
     <label>Popup per 5sec?</label>
     <input id="try-checkbox" type="checkbox"></input>
-    &emsp;
-    <span id="activate-button">Activate</span>
   </p>
 
   <div id="log"><b>Log:</b> </div>
@@ -31,7 +28,7 @@
   </iframe>
 
   <iframe
-    src="http://www.example.com"
+    src="https://www.example.com"
     style="border: 2px solid blue;"
     sandbox="allow-same-origin allow-scripts allow-popups">
   </iframe>

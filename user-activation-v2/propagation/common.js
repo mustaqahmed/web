@@ -7,9 +7,13 @@ function $(id) {
 
 function log(msg, color) {
   var styleStr = "background-color:" + color;
-  var fullMsg = frameLabel + "." + msg + " "
-      + (new Date().toTimeString().split(" ", 1)[0]);
-  $("log").innerHTML += "<span class='log-entry' style='" + styleStr + "'>" + fullMsg + "</span>";
+  var fullMsg = frameLabel + "." + msg;
+
+  var timeStr = new Date().toTimeString().split(" ", 1)[0];
+  timeStr = timeStr.substring(timeStr.indexOf(":"));
+
+  $("log").innerHTML += "<span class='log-entry' style='" + styleStr + "'>"
+      + fullMsg + " " + timeStr + "</span>";
 }
 
 function clearPopupInterval() {
@@ -44,7 +48,7 @@ function commonInit(label) {
       clearPopupInterval();
   });
 
-  $("activate-button").addEventListener("click", e => {
+  document.body.addEventListener("click", e => {
     log("click", "yellow");
   });
 }

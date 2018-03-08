@@ -1,11 +1,3 @@
-#activate-button {
-  background-color: lightgrey;
-  text-align: center;
-  padding: 2px;
-  border: 1px solid black;
-  margin: 2px;
-}
-
 iframe {
   width: 45%;
   height: 500px;
@@ -20,4 +12,10 @@ iframe {
 
 .log-entry {
   margin: 3px;
+}
+
+.instruction {
+  border: 1px solid grey;
+  background-color: lightgrey;
+  padding: 3px;
 }
