@@ -1,0 +1,23 @@
+#activate-button {
+  background-color: lightgrey;
+  text-align: center;
+  padding: 2px;
+  border: 1px solid black;
+  margin: 2px;
+}
+
+iframe {
+  width: 45%;
+  height: 500px;
+  border: 2px solid;
+  margin: 5px;
+}
+
+#log {
+  border: 1px solid lightgrey;
+  margin: 5px;
+}
+
+.log-entry {
+  margin: 3px;
+}
