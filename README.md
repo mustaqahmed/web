@@ -1,5 +1,5 @@
 # mustaqahmed.github.io/web
-### Miscellaneous web apps for testing W3C standard compliance
+Miscellaneous web apps for testing W3C standard compliance.
 
 - Pointer Events: Two finger panning with `touch-action: pan-x pan-y`:
   [image-panning.html](http://mustaqahmed.github.io/web/image-panning.html)
