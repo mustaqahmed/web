@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vibrate outside click handler</title>
+  <style>
+    #log {
+      border: 1px solid lightgrey;
+      margin: 5px;
+    }
+
+    .log-entry {
+      margin: 3px;
+    }
+  </style>
+  <script>
+    const intervalMs = 900;
+    var onloadIntervalId = undefined;
+    var onclickIntervalId = undefined;
+    var numberOfAttempts = 10;
+
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+    function log(msg, color) {
+      var styleStr = "background-color:" + color;
+
+      $("log").innerHTML += "<span class='log-entry' style='" + styleStr + "'>"
+          + msg + "</span>";
+    }
+
+    function callVibrate(label) {
+      const durationMs = 100;
+      var result = navigator.vibrate(durationMs);
+      log(label, result? "lightgreen" : "lightpink");
+
+      if (--numberOfAttempts <= 0) {
+        if (onloadIntervalId)
+          window.clearInterval(onloadIntervalId);
+        if (onclickIntervalId)
+          window.clearInterval(onclickIntervalId);
+        log("done", "beige");
+      }
+    }
+
+    function init() {
+      log("starting...", "beige");
+
+      onloadIntervalId = window.setInterval(callVibrate, intervalMs, "task-from-load");
+
+      window.addEventListener("click", () => {
+        log("click", "yellow");
+        if (!onclickIntervalId) {
+          onclickIntervalId = window.setInterval(callVibrate, intervalMs, "task-from-click");
+          $("button").disabled = true;
+        }
+      });
+    }
+  </script>
+</head>
+<body onload="init()">
+  <p>
+    <input id="button" type="button"
+           value="Click here within 9 seconds of load" />
+  </p>
+
+  <div id="log"><b>Log:</b> </div>
+</body>
+</html>
