@@ -30,9 +30,14 @@
     }
 
     function callVibrate(label) {
-      const durationMs = 100;
-      var result = navigator.vibrate(durationMs);
-      log(label, result? "lightgreen" : "lightpink");
+      if (navigator.vibrate) {
+        const durationMs = 100;
+        var result = navigator.vibrate(durationMs);
+        log(label, result? "lightgreen" : "lightpink");
+      } else {
+        log("vibration not suppoerted", "beige");
+        numberOfAttempts = 0;
+      }
 
       if (--numberOfAttempts <= 0) {
         if (onloadIntervalId)
