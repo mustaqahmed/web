@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Popup outside click handler</title>
+  <title>Fullscreen outside click handler</title>
   <style>
     #log {
       border: 1px solid lightgrey;
@@ -18,6 +18,15 @@
     var onclickIntervalId = undefined;
     var numberOfAttempts = 10;
 
+    const requestFullscreenFunc =
+        Element.prototype.requestFullscreen ? "requestFullscreen" :
+        Element.prototype.webkitRequestFullscreen ? "webkitRequestFullscreen" :
+        Element.prototype.mozRequestFullScreen ? "mozRequestFullScreen" :
+        Element.prototype.msRequestFullscreen ? "msRequestFullscreen" :
+        undefined;
+    const fullscreenchangeEvents = ["fullscreenchange", "webkitfullscreenchange", "mozfullscreenchange"];
+    const fullscreenerrorEvents = ["fullscreenerror", "webkitfullscreenerror", "mozfullscreenerror"];
+
     function $(id) {
       return document.getElementById(id);
     }
@@ -29,10 +38,8 @@
           + msg + "</span>";
     }
 
-    function callWindowOpen(label) {
-      var link = "http://www.example.com?label=" + label;
-      var result = window.open(link);
-      log(label, result? "lightgreen" : "lightpink");
+    function callFullscreenRequest(elemId) {
+      $(elemId)[requestFullscreenFunc]();
 
       if (--numberOfAttempts <= 0) {
         if (onloadIntervalId)
@@ -46,14 +53,22 @@
     function init() {
       log("starting...", "beige");
 
-      onloadIntervalId = window.setInterval(callWindowOpen, intervalMs, "task-from-load");
+      onloadIntervalId = window.setInterval(callFullscreenRequest, intervalMs, "task-from-load");
 
       window.addEventListener("click", () => {
         log("click", "yellow");
         if (!onclickIntervalId) {
-          onclickIntervalId = window.setInterval(callWindowOpen, intervalMs, "task-from-click");
+          onclickIntervalId = window.setInterval(callFullscreenRequest, intervalMs, "task-from-click");
           $("button").disabled = true;
         }
+      });
+
+      fullscreenchangeEvents.forEach(e => {
+        document.addEventListener(e, () => log("fullscreenchange", "lightgreen"));
+      });
+
+      fullscreenerrorEvents.forEach(e => {
+        document.addEventListener(e, () => log("fullscreenerror", "lightpink"));
       });
     }
   </script>
@@ -62,6 +77,8 @@
   <p>
     <input id="button" type="button"
            value="Click here within 9 seconds of load" />
+    <div id="task-from-load">load</div>
+    <div id="task-from-click">click</div>
   </p>
 
   <div id="log"><b>Log:</b> </div>
