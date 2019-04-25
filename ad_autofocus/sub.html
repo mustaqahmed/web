@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<div>Spammy subframe</div>
+<input id="textbox" autofocus></input>
+
+<script>
+    function log(e) {
+        console.log(e.type);
+    }
+    document.getElementById("textbox").addEventListener("focus", log);
+    document.getElementById("textbox").addEventListener("blur", log);
+    setInterval(() => window.open("https://www.example.com/?spam"), 500);
+</script>
+
