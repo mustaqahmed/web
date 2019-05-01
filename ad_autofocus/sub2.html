@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <div>Spammy subframe, uses focus() only</div>
 <input id="textbox"></input>
+<div>
+  Try to open popups?
+  <input id="try-popup" type="checkbox" checked></input>
+</div>
 
 <script>
-    function log(e) {
-        console.log(e.type);
+  function log(e) {
+    console.log(e.type);
+  }
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+  function popupIfApplicable() {
+    if ($("try-popup").checked) {
+      let w = window.open("https://www.example.com/?spam");
+      console.log("popup " + (w? "success" : "failure"));
     }
-    document.getElementById("textbox").addEventListener("focus", log);
-    document.getElementById("textbox").addEventListener("blur", log);
-    document.getElementById("textbox").focus();
-    setInterval(() => window.open("https://www.example.com/?spam"), 999);
+  }
+
+  $("textbox").addEventListener("focus", log);
+  $("textbox").addEventListener("blur", log);
+  $("textbox").focus();
+  setInterval(popupIfApplicable, 999);
 </script>
