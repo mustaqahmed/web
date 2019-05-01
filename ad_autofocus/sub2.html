@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<div>Spammy subframe 2</div>
+<input id="textbox" autofocus></input>
+
+<script>
+    function log(e) {
+        console.log(e.type);
+    }
+    document.getElementById("textbox").addEventListener("focus", log);
+    document.getElementById("textbox").addEventListener("blur", log);
+</script>
