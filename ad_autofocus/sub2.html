@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<div>Spammy subframe 2</div>
-<input id="textbox" autofocus></input>
+<div>Spammy subframe, uses focus() only</div>
+<input id="textbox"></input>
 
 <script>
     function log(e) {
@@ -8,4 +8,6 @@
     }
     document.getElementById("textbox").addEventListener("focus", log);
     document.getElementById("textbox").addEventListener("blur", log);
+    document.getElementById("textbox").focus();
+    setInterval(() => window.open("https://www.example.com/?spam"), 999);
 </script>
