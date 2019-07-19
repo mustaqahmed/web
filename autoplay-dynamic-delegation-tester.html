@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<h1>Tester for ExperimentalAutoplayDynamicDelegation feature</h1>
+<button id="button">Play</button>
+<br>
+<iframe src="https://codepen.io/mustaqahmed/full/BXyqzp"></iframe>
+<script>
+  document.getElementById("button").onclick = () => {
+    console.log("mDebug: onclick");
+    // The test page is inside Codepen's wrapper frame.
+    frames[0].frames[0].postMessage("hi", "*");
+  };
+</script>
