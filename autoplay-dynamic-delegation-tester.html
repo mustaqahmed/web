@@ -6,8 +6,8 @@
 <script>
   document.getElementById("button").onclick = () => {
     console.log("mDebug: onclick");
-    // The test page is inside Codepen's wrapper frame.
-      frames[0].frames[0].postMessage("hi",
-          {targetOrigin: "*", allowAutoplay: true});
+    // The test frame is inside Codepen's wrapper frame.
+    frames[0].frames[0].postMessage("msg1", {targetOrigin: "*", allowAutoplay: true});
+    frames[0].frames[0].postMessage("msg2", {targetOrigin: "*", allowAutoplay: false});
   };
 </script>
