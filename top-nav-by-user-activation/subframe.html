@@ -1,16 +1,16 @@
 <h1>Subframe</h1>
+<p>
+  Try navigating top frame:
+  <button id="button1">sync</button>
+  <button id="button2">async</button>
+</p>
 <script>
   function navigateTopFrame() {
       top.location='https://www.example.com';
   }
+  function navigateTopFrameAsync() {
+      setTimeout(navigateTopFrame, 0);
+  }
+  document.getElementById("button1").onclick = navigateTopFrame;
+  document.getElementById("button2").onclick = navigateTopFrameAsync;
 </script>
-<p>
-  <button onclick=navigateTopFrame>
-    Navigate top (sync)
-  </button>
-</p>
-<p>
-  <button onclick=()=>setTimeout(navigateTopFrame, 0)>
-    Navigate top (async)
-  </button>
-</p>
