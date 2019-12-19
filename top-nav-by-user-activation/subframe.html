@@ -1,2 +1,12 @@
 <h1>Subframe</h1>
-<button onclick="top.location='https://www.example.com'">Navigate top frame</button>
+<script>
+  function navigateTopFrame() {
+      top.location='https://www.example.com';
+  }
+</script>
+<p>
+  <button onclick=navigateTopFrame>Navigate top frame (synch)></button>
+</p>
+<p>
+  <button onclick=()=>setTimeout(navigateTopFrame, 0)>Navigate top frame (asynch)></button>
+</p>
