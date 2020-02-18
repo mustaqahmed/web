@@ -2,15 +2,32 @@
 <p>
   Try navigating top frame:
   <button id="button1">sync</button>
-  <button id="button2">async</button>
+  <button id="button2">async-short-timeout</button>
+  <button id="button3">async-long-timeout</button>
+  <button id="button4">async-xhr</button>
 </p>
 <script>
   function navigateTopFrame() {
       top.location='https://www.example.com';
   }
-  function navigateTopFrameAsync() {
+
+  function navigateTopFrameOnShortTimeout() {
       setTimeout(navigateTopFrame, 0);
   }
+
+  function navigateTopFrameOnLongTimeout() {
+      setTimeout(navigateTopFrame, 500);
+  }
+
+  function navigateTopFrameOnXhr() {
+      var request = new XMLHttpRequest();
+      request.onload = navigateTopFrame;
+      request.open('GET', 'https://mustaqahmed.github.io/web/');
+      request.send();
+  }
+
   document.getElementById("button1").onclick = navigateTopFrame;
-  document.getElementById("button2").onclick = navigateTopFrameAsync;
+  document.getElementById("button2").onclick = navigateTopFrameOnShortTimeout;
+  document.getElementById("button3").onclick = navigateTopFrameOnLongTimeout;
+  document.getElementById("button4").onclick = navigateTopFrameOnXhr;
 </script>
