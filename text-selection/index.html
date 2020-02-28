@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <title>Text selection tester</title>
+
+    <style>
+      section {
+        background-color: lightgrey;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="https://crbug.com/778419">bug</a>
+    <section>
+      <h3>Plain div</h3>
+      <div>
+        A quick brown fox jumps over the lazy dog.
+        A quick brown fox jumps over the lazy dog.
+        A quick brown fox jumps over the lazy dog.
+        <a href="https://www.example.com">
+          A quick brown fox jumps over the lazy dog.
+        </a>
+        A quick brown fox jumps over the lazy dog.
+        A quick brown fox jumps over the lazy dog.
+        A quick brown fox jumps over the lazy dog.
+      </div>
+    </section>
+
+    <section>
+      <h3>Input "text"</h3>
+      <input size=50 value="A quick brown fox jumps over the lazy dog." />
+    </section>
+
+    <section>
+      <h3>Textarea</h3>
+      <textarea rows=5 cols=50>A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog.</textarea>
+    </section>
+
+    <section>
+      <h3>Content-editable</h3>
+      <div contenteditable="true">
+        A quick brown fox jumps over the lazy dog.
+        A quick brown fox jumps over the lazy dog.
+        A quick brown fox jumps over the lazy dog.
+        <a href="https://www.example.com">
+          A quick brown fox jumps over the lazy dog.
+        </a>
+        A quick brown fox jumps over the lazy dog.
+        A quick brown fox jumps over the lazy dog.
+        A quick brown fox jumps over the lazy dog.
+      </div>
+    </section>
+  </body>
+</html>
