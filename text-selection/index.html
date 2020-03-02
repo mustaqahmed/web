@@ -9,6 +9,23 @@
         background-color: lightgrey;
       }
     </style>
+
+    <script>
+      function init() {
+          let eventList = [
+              "mousedown", "mousemove", "mouseup", "click", "dblclick",
+              "touchstart", "touchomove", "touchend", "touchcancel",
+          ];
+
+          for (let event of eventList) {
+              document.body.addEventListener(event, e => {
+                  console.log(e.type);
+              });
+          }
+      }
+
+      window.onload = init;
+    </script>
   </head>
 
   <body>
@@ -17,13 +34,9 @@
       <h3>Plain div</h3>
       <div>
         A quick brown fox jumps over the lazy dog.
-        A quick brown fox jumps over the lazy dog.
-        A quick brown fox jumps over the lazy dog.
         <a href="https://www.example.com">
           A quick brown fox jumps over the lazy dog.
         </a>
-        A quick brown fox jumps over the lazy dog.
-        A quick brown fox jumps over the lazy dog.
         A quick brown fox jumps over the lazy dog.
       </div>
     </section>
@@ -42,13 +55,9 @@
       <h3>Content-editable</h3>
       <div contenteditable="true">
         A quick brown fox jumps over the lazy dog.
-        A quick brown fox jumps over the lazy dog.
-        A quick brown fox jumps over the lazy dog.
         <a href="https://www.example.com">
           A quick brown fox jumps over the lazy dog.
         </a>
-        A quick brown fox jumps over the lazy dog.
-        A quick brown fox jumps over the lazy dog.
         A quick brown fox jumps over the lazy dog.
       </div>
     </section>
