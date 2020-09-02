@@ -1,0 +1,39 @@
+<style>
+  .target {
+    border: solid 1px grey;
+    background-color: #cfc;
+    margin: 10px;
+    padding: 20px;
+  }
+</style>
+<h1>Draggability testing</h1>
+
+<div style="display:flex">
+  <div id="div1" class="target"                  >div1: default</div>
+  <div id="div2" class="target" draggable="false">div2: non-draggable</div>
+  <div id="div3" class="target" draggable="true" >div3: draggable</div>
+</div>
+
+<div style="display:flex">
+  <a id="a1" class="target" href="about:blank"                  >a1: default</a>
+  <a id="a2" class="target" href="about:blank" draggable="false">a2: non-draggable</a>
+  <a id="a3" class="target" href="about:blank" draggable="true" >a3: draggable</a>
+</div>
+
+<div style="display:flex">
+  <img id="img1" class="target" src="about:blank"                   alt="img1: default">
+  <img id="img2" class="target" src="about:blank" draggable="false" alt="img2: non-draggable">
+  <img id="img3" class="target" src="about:blank" draggable="true"  alt="img3: draggable">
+</div>
+<script>
+  let event_list = ["contextmenu", "dragstart", "dragend", "touchcancel", "pointercancel"];
+  let target_list = document.getElementsByClassName("target");
+
+  event_list.forEach(ename => {
+    for (var i = 0; i < target_list.length; i++) {
+      target_list[i].addEventListener(ename, e => {
+        console.log(e.target.id + " received " + e.type);
+      });
+    }
+  });
+</script>
