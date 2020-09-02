@@ -28,7 +28,7 @@
 <script>
   let event_list = ["contextmenu", "dragstart", "dragend", "touchcancel", "pointercancel"];
   let target_list = document.getElementsByClassName("target");
-
+  
   event_list.forEach(ename => {
     for (var i = 0; i < target_list.length; i++) {
       target_list[i].addEventListener(ename, e => {
