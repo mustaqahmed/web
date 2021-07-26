@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--
+  Issue ####### repro
+  This is a cross-origin iframe for codepen.io/mustaqahmed/####
+-->
+<h2>Cross-origin subframe</h2>
+<div><input id="button" type="button" value="Click here once" /></div>
+<div>Green background indicates active transient user activation state.</div>
+<script>
+  function refreshBackgroundColor() {
+    if (!navigator.userActivation)
+      return;
+    document.body.style.backgroundColor =
+        navigator.userActivation.isActive ? "#d0ffd0" : "white";
+  }
+
+  function init(label) {
+    setInterval(refreshBackgroundColor, 100);
+    document.getElementById("button").onclick =
+        () => parent.postMessage("click-in-iframe", "*");
+  }
+
+  init();
+</script>
