@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Generator for mq-test.html
 
 from string import Template
@@ -120,4 +120,4 @@ for mq_feature in mq_features:
     html_body += feature_block
 
 
-print Template(html_template).substitute({"styles" : styles, "html_body" : html_body})
+print(Template(html_template).substitute({"styles" : styles, "html_body" : html_body}))
