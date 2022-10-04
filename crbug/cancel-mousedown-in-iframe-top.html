@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   Issue 269917
-  This is a same-origin top-frame for cancel-mousedown-in-iframe-top.html
+  This is a same-origin top-frame for cancel-mousedown-in-iframe.html
 -->
 <style>
   iframe {
@@ -9,7 +9,7 @@
     height: 200px;
   }
 </style>
-<iframe src="cancel-mousedown-in-iframe-top.html"</iframe>
+<iframe src="cancel-mousedown-in-iframe.html"</iframe>
 <script>
   window.addEventListener("mousedown", e => console.log(e.type + "@outer"));
   window.addEventListener("mouseup", e => console.log(e.type + "@outer"));
