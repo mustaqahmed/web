@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+  Issue 269917
+  This is a cross-origin iframe for https://codepen.io/mustaqahmed/pen/yLjBraJ
+  and a same-origin iframe for cancel-mousedown-in-iframe-top.html
+-->
+<style>
+  body, html {
+    margin: 0;
+    padding; 0;
+    background-color: #cbf;
+  }
+</style>
+<body>
+  <ol>
+    <li>Open JS console</li>
+    <li>In each button, press mouse button,
+      drag out of the iframe and
+      release the button.
+    </li>
+  </ol>
+  <button id="button_a">Button A</button>
+  <button id="button_b">Button B</button>
+</body>
+<script>
+  window.addEventListener("mousedown", e => console.log(e.type + "@inner"));
+  window.addEventListener("mouseup", e => console.log(e.type + "@inner"));
+
+  document.getElementById("button_b").addEventListener(
+    "mousedown", e => e.preventDefault());
+</script>
