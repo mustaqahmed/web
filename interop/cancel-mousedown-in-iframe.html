@@ -23,6 +23,7 @@
   <button id="button_b">Button B</button>
 </body>
 <script>
+  window.addEventListener("load", e => console.log(e.type + "@inner"));
   window.addEventListener("mousedown", e => console.log(e.type + "@inner"));
   window.addEventListener("mouseup", e => console.log(e.type + "@inner"));
 
