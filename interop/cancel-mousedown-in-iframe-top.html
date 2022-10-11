@@ -9,7 +9,7 @@
     height: 200px;
   }
 </style>
-<iframe src="cancel-mousedown-in-iframe.html" onload=e=>console.log(e.type + "@outer iframe")></iframe>
+<iframe src="cancel-mousedown-in-iframe.html" onload="console.log('load@iframe')"></iframe>
 <script>
   window.addEventListener("load", e => console.log(e.type + "@outer"));
   window.addEventListener("mousedown", e => console.log(e.type + "@outer"));
