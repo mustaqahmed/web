@@ -1,0 +1,30 @@
+<form id="form">
+    <a id="link" href="chrome://version">Yo000!</a>
+</form>
+
+<script>
+    function remove_iframe() {
+        document.body.removeChild(iframe);
+    }
+
+    function add_iframe() {
+        document.getElementById("form").innerHTML = "";
+        iframe = document.createElement("iframe");
+        iframe.src = window.location + "#child";
+        document.body.appendChild(iframe);
+    }
+
+    if (window.location.hash == "#child") {
+        window.onload = () => {
+            var input = document.getElementById("link");
+            input.oncontextmenu = () => {
+                console.log("contextmenu");
+                setTimeout(() => {
+                    parent.remove_iframe();
+                }, 3000);
+            }
+        }
+    } else {
+        window.onload = add_iframe;
+    }
+</script>
