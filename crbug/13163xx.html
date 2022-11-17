@@ -4,10 +4,12 @@
 
 <script>
     function remove_iframe() {
+        console.log("mDebug: remove_iframe");
         document.body.removeChild(iframe);
     }
 
     function add_iframe() {
+        console.log("mDebug: add_iframe");
         document.getElementById("form").innerHTML = "";
         iframe = document.createElement("iframe");
         iframe.src = window.location + "#child";
@@ -18,7 +20,7 @@
         window.onload = () => {
             var input = document.getElementById("link");
             input.oncontextmenu = () => {
-                console.log("contextmenu");
+                console.log("mDebug: contextmenu");
                 setTimeout(() => {
                     parent.remove_iframe();
                 }, 3000);
