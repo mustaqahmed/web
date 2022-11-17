@@ -19,11 +19,12 @@
     if (window.location.hash == "#child") {
         window.onload = () => {
             var input = document.getElementById("link");
-            input.oncontextmenu = () => {
+            input.oncontextmenu = e => {
                 console.log("mDebug: contextmenu");
                 setTimeout(() => {
                     parent.remove_iframe();
                 }, 3000);
+                e.preventDefault();
             }
         }
     } else {
