@@ -25,6 +25,7 @@
 <script>
   window.addEventListener("load", e => console.log(e.type + "@inner"));
   window.addEventListener("mousedown", e => console.log(e.type + "@inner"));
+  window.addEventListener("mousemove", e => console.log(e.type + "@inner"));
   window.addEventListener("mouseup", e => console.log(e.type + "@inner"));
 
   document.getElementById("button_b").addEventListener(
