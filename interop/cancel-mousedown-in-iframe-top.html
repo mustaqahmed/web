@@ -8,11 +8,25 @@
     width: 400px;
     height: 200px;
   }
+  #log {
+    font-size: small;
+  }
 </style>
 <iframe src="cancel-mousedown-in-iframe.html" onload="console.log('load@iframe')"></iframe>
+<div id="log"></div>
 <script>
-  window.addEventListener("load", e => console.log(e.type + "@outer"));
-  window.addEventListener("mousedown", e => console.log(e.type + "@outer"));
-  window.addEventListener("mousemove", e => console.log(e.type + "@outer"));
-  window.addEventListener("mouseup", e => console.log(e.type + "@outer"));
+  let last_msg;
+
+  function log(e) {
+    let msg = e.type;
+    if (msg == last_msg) {
+      msg = "."
+    } else {
+      last_msg = msg;
+    }
+    document.getElementById("log").innerHTML += `<span>${msg}</span> `;
+  }
+  ["load", "mousedown", "mousemove", "mouseup"].forEach(ename => {
+    window.addEventListener(ename, log);
+  });
 </script>

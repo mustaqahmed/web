@@ -10,24 +10,35 @@
     padding; 0;
     background-color: #cbf;
   }
+  #log {
+    font-size: small;
+  }
 </style>
-<body>
-  <ol>
-    <li>Open JS console</li>
-    <li>In each button, press mouse button,
-      drag out of the iframe and
-      release the button.
-    </li>
-  </ol>
-  <button id="button_a">Button A</button>
-  <button id="button_b">Button B (cancels mousedown)</button>
-</body>
+<ol>
+  <li>Open JS console</li>
+  <li>In each button, press mouse button,
+    drag out of the iframe and
+    release the button.
+  </li>
+</ol>
+<button id="button_a">Button A</button>
+<button id="button_b">Button B (cancels mousedown)</button>
+<div id="log"></div>
 <script>
-  window.addEventListener("load", e => console.log(e.type + "@inner"));
-  window.addEventListener("mousedown", e => console.log(e.type + "@inner"));
-  window.addEventListener("mousemove", e => console.log(e.type + "@inner"));
-  window.addEventListener("mouseup", e => console.log(e.type + "@inner"));
+  let last_msg;
 
+  function log(e) {
+    let msg = e.type;
+    if (msg == last_msg) {
+      msg = "."
+    } else {
+      last_msg = msg;
+    }
+    document.getElementById("log").innerHTML += `<span>${msg}</span> `;
+  }
+  ["load", "mousedown", "mousemove", "mouseup"].forEach(ename => {
+    window.addEventListener(ename, log);
+  });
   document.getElementById("button_b").addEventListener(
     "mousedown", e => e.preventDefault());
 </script>
