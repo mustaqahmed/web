@@ -8,20 +8,20 @@
   body, html {
     margin: 0;
     padding; 0;
-    background-color: lightblue;
+    background-color: lightcyan;
   }
   #log {
     font-size: x-small;
-    color: darkblue;
+    color: darkcyan;
   }
 </style>
 <div>
-  On each button, press mouse left-button, drag the mouse to cross the
-  iframe boundary and release the button.  Mouse press and release must
-  be in different frames.
+  Press mouse left-button on each box,
+  drag to cross the iframe boundary exactly once,
+  and release the mouse button.
 </div>
-<button id="button_a">Button A</button>
-<button id="button_b">Button B (cancels mousedown)</button>
+<button id="box_a">Box A</button>
+<button id="box_b">Box B (cancels mousedown)</button>
 <div id="log"></div>
 <script>
   let last_msg;
@@ -38,6 +38,6 @@
   ["load", "mousedown", "mousemove", "mouseup"].forEach(ename => {
     window.addEventListener(ename, log);
   });
-  document.getElementById("button_b").addEventListener(
+  document.getElementById("box_b").addEventListener(
     "mousedown", e => e.preventDefault());
 </script>
