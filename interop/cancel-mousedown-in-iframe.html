@@ -8,20 +8,18 @@
   body, html {
     margin: 0;
     padding; 0;
-    background-color: #cbf;
+    background-color: lightblue;
   }
   #log {
-    font-size: small;
-    color: purple;
+    font-size: x-small;
+    color: darkblue;
   }
 </style>
-<ol>
-  <li>Open JS console</li>
-  <li>In each button, press mouse button,
-    drag out of the iframe and
-    release the button.
-  </li>
-</ol>
+<div>
+  On each button, press mouse left-button, drag the mouse to cross the
+  iframe boundary and release the button.  Mouse press and release must
+  be in different frames.
+</div>
 <button id="button_a">Button A</button>
 <button id="button_b">Button B (cancels mousedown)</button>
 <div id="log"></div>

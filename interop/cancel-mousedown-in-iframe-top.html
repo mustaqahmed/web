@@ -9,10 +9,15 @@
     height: 200px;
   }
   #log {
-    font-size: small;
+    font-size: x-small;
   }
 </style>
-<iframe src="cancel-mousedown-in-iframe.html" onload="console.log('load@iframe')"></iframe>
+<iframe src="cancel-mousedown-in-iframe.html"
+        onload="console.log('load@iframe')">
+</iframe>
+<br/>
+<button id="button_c">Button C</button>
+<button id="button_d">Button D (cancels mousedown)</button>
 <div id="log"></div>
 <script>
   let last_msg;
@@ -29,4 +34,6 @@
   ["load", "mousedown", "mousemove", "mouseup"].forEach(ename => {
     window.addEventListener(ename, log);
   });
+  document.getElementById("button_d").addEventListener(
+    "mousedown", e => e.preventDefault());
 </script>
