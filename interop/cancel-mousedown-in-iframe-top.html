@@ -31,7 +31,7 @@
     }
     document.getElementById("log").innerHTML += `<span>${msg}</span> `;
   }
-  ["load", "mousedown", "mousemove", "mouseup"].forEach(ename => {
+  ["load", "mousedown", "mousemove", "mouseup", "mouseover", "mouseout"].forEach(ename => {
     window.addEventListener(ename, log);
   });
   document.getElementById("box_d").addEventListener(
