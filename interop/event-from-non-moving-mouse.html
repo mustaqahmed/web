@@ -1,0 +1,64 @@
+<style>
+  #panel {
+    width: 60vw;
+    height: 50vh;
+    padding: 3px;
+    border: 1px solid black;
+    overflow: scroll;
+    background-color: lightgrey;
+  }
+
+  .card {
+    height: 15vh;
+  }
+  .card:hover {
+    background-color: yellow;
+  }
+
+  #log {
+    font-size: small;
+  }
+</style>
+<div>Hold the mouse <b>stationary</b> over the scroller below and scroll using wheel or touch.
+</div>
+<div>When the scrolling stops, do you see: CSS hover effect? Mouse over/out events or move events? Pointer over/out events or move events?</div>
+<div id="panel">
+  <div class="card">0</div>
+  <div class="card">1</div>
+  <div class="card">2</div>
+  <div class="card">3</div>
+  <div class="card">4</div>
+  <div class="card">5</div>
+  <div class="card">6</div>
+  <div class="card">7</div>
+  <div class="card">8</div>
+  <div class="card">9</div>
+</div>
+<div id="log">Event log:
+</div>
+<script>
+  function log(msg) {
+    document.getElementById("log").innerHTML += msg;
+  }
+
+  let event_list = [
+    "pointerover", "pointerout", "pointermove",
+    "mouseover", "mouseout", "mousemove"
+  ];
+
+  let card_list = document.getElementsByClassName("card");
+
+  event_list.forEach(ename => {
+    console.log(ename);
+    for (var i = 0; i < card_list.length; i++) {
+      card_list[i].addEventListener(ename, e => {
+        let msg = e.type;
+        msg = msg.startsWith("pointer") ? "p" + msg.substring(7) : "m" + msg.substring(5);
+        let bgcolor = (msg.endsWith("move") ? "light" : "") +
+            (msg[0] == "p" ? "green" : "blue");
+        log(`<span style="background-color:${bgcolor}">${msg}</span> `);
+        console.log(msg);
+      });
+    }
+  });
+</script>
