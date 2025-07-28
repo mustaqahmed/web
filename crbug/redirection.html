@@ -7,8 +7,10 @@
   }
 </style>
 <div>Testing redirection from a cross-origin subframe after a navigation.</div>
-<div id="button">Click here</div>
+<div id="button1">Click here for auto-redirect attempt from subframe</div>
+<div id="button2">Click here for auto-redirect attempt from top frame</div>
 <script>
   "use strict";
-  button.onclick = () => window.location = "https://codepen.io/mustaqahmed/full/PwPGYxv";
+  button1.onclick = () => window.location = "https://codepen.io/mustaqahmed/full/PwPGYxv";
+  button2.onclick = () => window.location = "https://vmpstr.github.io/htmldemos/navigation/auto-redirect.html";
 </script>
