@@ -17,7 +17,8 @@ mq_features = [
     MQFeature("aspect-ratio", ["1/2", "9/16", "3/4", "1/1", "4/3", "16/9", "2/1"], "min"),
     MQFeature("orientation", ["portrait", "landscape"]),
 
-    MQFeature("resolution", ["100dpi", "200dpi", "400dpi", "800dpi"], "min"),
+
+    MQFeature("resolution", ["1dppx", "1.25dppx", "1.5dppx", "2dppx", "3dppx", "100dpi", "200dpi", "400dpi", "800dpi"], "min"),
     MQFeature("scan", ["interlace", "progressive"]),
     MQFeature("grid", []),
     MQFeature("update-frequency", ["none", "slow", "normal"]),
@@ -68,7 +69,7 @@ feature_name_style_template="""\
 
 feature_value_style_template="""\
     @media all and (${prefixed_feature_name}: ${feature_value}) {
-      #${prefixed_feature_name}_${feature_value} {
+      #${prefixed_feature_name}_${feature_value_id} {
         color: green; font-weight: bold; border: 1px solid green
       }
     }
@@ -82,7 +83,7 @@ ${feature_value_blocks}
 """
 
 feature_value_block_template="""\
-    <span id="${prefixed_feature_name}_${feature_value}">${feature_value}</span>
+    <span id="${prefixed_feature_name}_${feature_value_id}">${feature_value}</span>
 """
 
 # ======= Generator code =======
@@ -103,7 +104,8 @@ for mq_feature in mq_features:
     feature_value_blocks = ""
     for feature_value in mq_feature.values:
         mappings = {"prefixed_feature_name" : prefixed_feature_name,
-                    "feature_value" : feature_value}
+                    "feature_value" : feature_value,
+                    "feature_value_id": feature_value.replace(".", "_")}
 
         styles += Template(
             feature_value_style_template).substitute(mappings)
