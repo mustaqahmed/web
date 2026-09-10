@@ -7,9 +7,9 @@
     height: 50px;
   }
 </style>
-<div id="opener">
+<a id="opener" href="#">
   Click to open a new or the existing popup
-</div>
+</a>
 <div id="fullscreener0">
   Click to make two fullscreen calls together
 </div>
@@ -23,8 +23,8 @@
   let delay = 100;
   document.getElementById("opener").onclick = () => open(location.href + "?a", "noname");
   document.getElementById("fullscreener0").onclick = () => {
-      opener.document.documentElement.webkitRequestFullscreen();
-			document.documentElement.webkitRequestFullscreen();
+    opener.document.documentElement.webkitRequestFullscreen();
+    document.documentElement.webkitRequestFullscreen();
   };
   document.getElementById("fullscreener1").onclick = () => {
     setTimeout(() => opener.document.body.requestFullscreen(), delay);
