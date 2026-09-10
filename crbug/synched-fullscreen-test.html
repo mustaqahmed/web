@@ -13,19 +13,22 @@
 <div id="fullscreener0">
   Click to make two fullscreen calls together
 </div>
+<!--
 <div id="fullscreener1">
   Click to make two fullscreen calls, this first
 </div>
 <div id="fullscreener2">
   Click to make two fullscreen calls, opener first
-</div>
+</div>-->
 <script>
-  let delay = 100;
-  document.getElementById("opener").onclick = () => open(location.href + "?a", "noname");
+  //let delay = 100;
+  document.getElementById("opener").onclick =
+    () => open(location.href + "?a", "noname", , "width=200,height=100,top=10,left=10");
   document.getElementById("fullscreener0").onclick = () => {
     opener.document.documentElement.webkitRequestFullscreen();
     document.documentElement.webkitRequestFullscreen();
   };
+  /*
   document.getElementById("fullscreener1").onclick = () => {
     setTimeout(() => opener.document.body.requestFullscreen(), delay);
     document.body.requestFullscreen();
@@ -33,5 +36,5 @@
   document.getElementById("fullscreener2").onclick = () => {
     opener.document.body.requestFullscreen();
     setTimeout(() => document.body.requestFullscreen(), delay);
-  };
+  };*/
 </script>
