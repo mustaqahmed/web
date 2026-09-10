@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<title>Synched fullscreen test</title>
+<style>
+  div {
+    border: solid 1px grey;
+    margin: 5px;
+    height: 50px;
+  }
+</style>
+<div id="opener">
+  Click to open a popup
+</div>
+<div id="fullscreener0">
+  Click to make two fullscreen calls together
+</div>
+<div id="fullscreener1">
+  Click to make two fullscreen calls, this first
+</div>
+<div id="fullscreener2">
+  Click to make two fullscreen calls, opener first
+</div>
+<script>
+  let delay = 100;
+  document.getElementById("opener").onclick = () => open(location.href + "?a");
+  document.getElementById("fullscreener0").onclick = () => {
+    document.body.requestFullscreen();
+    opener.document.body.requestFullscreen();
+  };
+  document.getElementById("fullscreener1").onclick = () => {
+    document.body.requestFullscreen();
+    setTimeout(() => opener.document.body.requestFullscreen(), delay);
+  };
+  document.getElementById("fullscreener2").onclick = () => {
+    setTimeout(() => document.body.requestFullscreen(), delay);
+    opener.document.body.requestFullscreen();
+  };
+</script>
