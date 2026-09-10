@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<title>Delayed fullscreen test</title>
+<style>
+  div {
+    border: solid 1px grey;
+    margin: 5px;
+    height: 50px;
+  }
+</style>
+<div style="background-color: lightgrey">
+  Item 1: click to fullscreen immediately
+</div>
+<div style="background-color: lightblue">
+  Item 2: click to fullscreen after 0sec
+</div>
+<div style="background-color: orange">
+  Item 3: click to fullscreen after 2sec
+</div>
+<script>
+  let divs =  document.getElementsByTagName("div");
+  
+  function clickHandler(e) {
+    console.log("clicked", e.target);
+    if (e.target === divs[0]) {
+      e.target.requestFullscreen();
+    } else if (e.target === divs[1]) {
+      setTimeout(() => e.target.requestFullscreen(), 0);
+    } else if (e.target === divs[2]) {
+      setTimeout(() => e.target.requestFullscreen(), 2000);
+    }
+  }
+  
+  divs[0].addEventListener("click", clickHandler);
+  divs[1].addEventListener("click", clickHandler);
+  divs[2].addEventListener("click", clickHandler);
+</script>
