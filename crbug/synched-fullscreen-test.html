@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <title>Synched fullscreen test</title>
 <style>
-  div {
+  .button {
     border: solid 1px grey;
     margin: 5px;
     height: 50px;
   }
 </style>
-<div id="opener">
-  Open new or existing popup
+<div>
+  <div class="button" id="opener_s">
+    Open new or existing popup w/o geom
+  </div>
+  <div class="button" id="opener_g">
+    Open new or existing popup w/geom
+  </div>
 </div>
-<div id="fullscreener_t_o">
-  Fullscreen both together, opener first
-</div>
-<div id="fullscreener_t_p">
-  Fullscreen both together, popup first
+<div>
+  <div class="button" id="fullscreener_t_o">
+    Fullscreen both together, opener first
+  </div>
+  <div class="button" id="fullscreener_t_p">
+    Fullscreen both together, popup first
+  </div>
 </div>
 <script>
-  document.getElementById("opener").onclick =
-    () => open(location.href + "?a", "noname", "width=200,height=200,top=10,left=10");
-  document.getElementById("fullscreener_t_o").onclick = () => {
-    opener.document.body.requestFullscreen();
-    document.body.requestFullscreen();
-  };
-  document.getElementById("fullscreener_t_p").onclick = () => {
-    document.body.requestFullscreen();
-    opener.document.body.requestFullscreen();
-  };
+  if (!opener) {
+    // Orignal window => remove popup buttons.
+    document.body.lastElementChild.remove();
+
+    document.getElementById("opener_s").onclick =
+      () => open(location.href + "?s", "noname_s");
+    document.getElementById("opener_g").onclick =
+      () => open(location.href + "?g", "noname_g", "width=200,height=200,top=10,left=10");
+  } else {
+    // Popup window => remove orignal window buttons.
+    document.body.firstElementChild.remove();
+
+    document.getElementById("fullscreener_t_o").onclick = () => {
+      opener.document.body.requestFullscreen();
+      document.body.requestFullscreen();
+    };
+    document.getElementById("fullscreener_t_p").onclick = () => {
+      document.body.requestFullscreen();
+      opener.document.body.requestFullscreen();
+    };
+  }
   /*
   //let delay = 100;
   document.getElementById("fullscreener1").onclick = () => {
