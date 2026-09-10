@@ -20,7 +20,7 @@
   let divs =  document.getElementsByTagName("div");
   
   function clickHandler(e) {
-    console.log("clicked", e.target);
+    console.log("clicked", e.target.innerText);
     if (e.target === divs[0]) {
       e.target.requestFullscreen();
     } else if (e.target === divs[1]) {
