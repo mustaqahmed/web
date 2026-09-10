@@ -25,8 +25,8 @@
   document.getElementById("opener").onclick =
     () => open(location.href + "?a", "noname", "width=200,height=200,top=10,left=10");
   document.getElementById("fullscreener0").onclick = () => {
-    opener.document.documentElement.webkitRequestFullscreen();
-    document.documentElement.webkitRequestFullscreen();
+    opener.document.body.requestFullscreen();
+    document.body.requestFullscreen();
   };
   /*
   document.getElementById("fullscreener1").onclick = () => {
