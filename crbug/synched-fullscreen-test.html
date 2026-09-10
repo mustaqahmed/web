@@ -26,15 +26,15 @@
   let delay = 100;
   document.getElementById("opener").onclick = () => open(location.href + "?a", "noname");
   document.getElementById("fullscreener0").onclick = () => {
-    document.body.requestFullscreen();
     opener.document.body.requestFullscreen();
+    document.body.requestFullscreen();
   };
   document.getElementById("fullscreener1").onclick = () => {
-    document.body.requestFullscreen();
     setTimeout(() => opener.document.body.requestFullscreen(), delay);
+    document.body.requestFullscreen();
   };
   document.getElementById("fullscreener2").onclick = () => {
-    setTimeout(() => document.body.requestFullscreen(), delay);
     opener.document.body.requestFullscreen();
+    setTimeout(() => document.body.requestFullscreen(), delay);
   };
 </script>
