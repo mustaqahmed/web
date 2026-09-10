@@ -7,6 +7,9 @@
     height: 50px;
   }
 </style>
+<div id="noop">
+  Click to do nothing
+</div>
 <div id="opener">
   Click to open a popup
 </div>
@@ -21,7 +24,7 @@
 </div>
 <script>
   let delay = 100;
-  document.getElementById("opener").onclick = () => open(location.href + "?a");
+  document.getElementById("opener").onclick = () => open(location.href + "?a", "noname");
   document.getElementById("fullscreener0").onclick = () => {
     document.body.requestFullscreen();
     opener.document.body.requestFullscreen();
