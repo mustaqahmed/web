@@ -6,6 +6,9 @@
     margin: 5px;
     height: 50px;
   }
+  .hidden {
+    display: none;
+  }
 </style>
 <body onload="run()">
   <div>
@@ -20,7 +23,7 @@
       Open new or existing popup w/geom
     </div>
   </div>
-  <div>
+  <div class="hidden">
     <div>
       After the second click on the opener window,
       click one button below and check the fullscreen status.
@@ -42,18 +45,20 @@
 <script>
   function run() {
     if (!opener) {
-      // Orignal window => remove popup buttons.
+      // Orignal window => no popup buttons.
       console.log("Removing popup buttons.");
-      document.body.lastElementChild.remove();
+      document.body.firstElementChild.classList.remove("hidden");
+      document.body.lastElementChild.classList.add("hidden");
   
       document.getElementById("opener_s").onclick =
         () => open(location.href + "?s", "noname_s");
       document.getElementById("opener_g").onclick =
         () => open(location.href + "?g", "noname_g", "width=200,height=200,top=10,left=10");
     } else {
-      // Popup window => remove orignal window buttons.
+      // Popup window => no orignal window buttons.
       console.log("Removing buttons for original window.");
-      document.body.firstElementChild.remove();
+      document.body.firstElementChild.classList.add("hidden");
+      document.body.lastElementChild.classList.remove("hidden");
   
       document.getElementById("fullscreener_t_o").onclick = () => {
         opener.document.body.requestFullscreen();
