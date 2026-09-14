@@ -11,10 +11,10 @@
   }
 </style>
 <body onload="run()">
-  <div class="">
+  <div>
     <div>
-      Click one button below,
-      then come back to this window and click the same button again.
+      Main window: Click one button below,
+      then come back here and click the same button again.
     </div>
     <div class="button" id="opener_s">
       Open new or existing popup w/o geom
@@ -23,9 +23,9 @@
       Open new or existing popup w/geom
     </div>
   </div>
-  <div class="hidden">
+  <div>
     <div>
-      After the second click on the opener window,
+      Popup: After the second click on the opener window,
       click one button below and check the fullscreen status.
     </div>
     <div class="button" id="fullscreener_t_o">
@@ -44,38 +44,28 @@
 </body>
 <script>
   function run() {
-    if (!opener) {
-      // Orignal window => no popup buttons.
-      console.log("Removing popup buttons.");
-  
-      document.getElementById("opener_s").onclick =
-        () => open(location.href + "?s", "noname_s");
-      document.getElementById("opener_g").onclick =
-        () => open(location.href + "?g", "noname_g", "width=200,height=200,top=10,left=10");
-    } else {
-      // Popup window => no orignal window buttons.
-      console.log("Removing buttons for original window.");
-      document.body.firstElementChild.classList.toggle("hidden");
-      document.body.lastElementChild.classList.toggle("hidden");
-  
-      document.getElementById("fullscreener_t_o").onclick = () => {
-        opener.document.body.requestFullscreen();
-        document.body.requestFullscreen();
-      };
-      document.getElementById("fullscreener_t_p").onclick = () => {
-        document.body.requestFullscreen();
-        opener.document.body.requestFullscreen();
-      };
+    document.getElementById("opener_s").onclick =
+      () => open(location.href + "?s", "noname_s");
+    document.getElementById("opener_g").onclick =
+      () => open(location.href + "?g", "noname_g", "width=200,height=200,top=10,left=10");
 
-      let delay = 100;
-      document.getElementById("fullscreener_d_o").onclick = () => {
-        opener.document.body.requestFullscreen();
-        setTimeout(() => document.body.requestFullscreen(), delay);
-      };
-      document.getElementById("fullscreener_d_p").onclick = () => {
-        document.body.requestFullscreen();
-        setTimeout(() => opener.document.body.requestFullscreen(), delay);
-      };
-    }
+    document.getElementById("fullscreener_t_o").onclick = () => {
+      opener.document.body.requestFullscreen();
+      document.body.requestFullscreen();
+    };
+    document.getElementById("fullscreener_t_p").onclick = () => {
+      document.body.requestFullscreen();
+      opener.document.body.requestFullscreen();
+    };
+
+    let delay = 100;
+    document.getElementById("fullscreener_d_o").onclick = () => {
+      opener.document.body.requestFullscreen();
+      setTimeout(() => document.body.requestFullscreen(), delay);
+    };
+    document.getElementById("fullscreener_d_p").onclick = () => {
+      document.body.requestFullscreen();
+      setTimeout(() => opener.document.body.requestFullscreen(), delay);
+    };
   }
 </script>
