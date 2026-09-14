@@ -7,52 +7,72 @@
     height: 50px;
   }
 </style>
-<div>
-  <div class="button" id="opener_s">
-    Open new or existing popup w/o geom
+<body onload="run()">
+  <div>
+    <div>
+      Click one button below,
+      then come back to this window and click the same button again.
+    </div>
+    <div class="button" id="opener_s">
+      Open new or existing popup w/o geom
+    </div>
+    <div class="button" id="opener_g">
+      Open new or existing popup w/geom
+    </div>
   </div>
-  <div class="button" id="opener_g">
-    Open new or existing popup w/geom
+  <div>
+    <div>
+      After the second click on the opener window,
+      click one button below and check the fullscreen status.
+    </div>
+    <div class="button" id="fullscreener_t_o">
+      Fullscreen both together, opener first
+    </div>
+    <div class="button" id="fullscreener_t_p">
+      Fullscreen both together, popup first
+    </div>
+    <div class="button" id="fullscreener_d_o">
+      Fullscreen one after another, opener first
+    </div>
+    <div class="button" id="fullscreener_d_p">
+      Fullscreen one after another, popup first
+    </div>
   </div>
-</div>
-<div>
-  <div class="button" id="fullscreener_t_o">
-    Fullscreen both together, opener first
-  </div>
-  <div class="button" id="fullscreener_t_p">
-    Fullscreen both together, popup first
-  </div>
-</div>
+</body>
 <script>
-  if (!opener) {
-    // Orignal window => remove popup buttons.
-    document.body.lastElementChild.remove();
+  function run() {
+    if (!opener) {
+      // Orignal window => remove popup buttons.
+      console.log("Removing popup buttons.");
+      document.body.lastElementChild.remove();
+  
+      document.getElementById("opener_s").onclick =
+        () => open(location.href + "?s", "noname_s");
+      document.getElementById("opener_g").onclick =
+        () => open(location.href + "?g", "noname_g", "width=200,height=200,top=10,left=10");
+    } else {
+      // Popup window => remove orignal window buttons.
+      console.log("Removing buttons for original window.");
+      document.body.firstElementChild.remove();
+  
+      document.getElementById("fullscreener_t_o").onclick = () => {
+        opener.document.body.requestFullscreen();
+        document.body.requestFullscreen();
+      };
+      document.getElementById("fullscreener_t_p").onclick = () => {
+        document.body.requestFullscreen();
+        opener.document.body.requestFullscreen();
+      };
 
-    document.getElementById("opener_s").onclick =
-      () => open(location.href + "?s", "noname_s");
-    document.getElementById("opener_g").onclick =
-      () => open(location.href + "?g", "noname_g", "width=200,height=200,top=10,left=10");
-  } else {
-    // Popup window => remove orignal window buttons.
-    document.body.firstElementChild.remove();
-
-    document.getElementById("fullscreener_t_o").onclick = () => {
-      opener.document.body.requestFullscreen();
-      document.body.requestFullscreen();
-    };
-    document.getElementById("fullscreener_t_p").onclick = () => {
-      document.body.requestFullscreen();
-      opener.document.body.requestFullscreen();
-    };
+      let delay = 100;
+      document.getElementById("fullscreener_d_o").onclick = () => {
+        opener.document.body.requestFullscreen();
+        setTimeout(() => document.body.requestFullscreen(), delay);
+      };
+      document.getElementById("fullscreener_d_p").onclick = () => {
+        document.body.requestFullscreen();
+        setTimeout(() => opener.document.body.requestFullscreen(), delay);
+      };
+    }
   }
-  /*
-  //let delay = 100;
-  document.getElementById("fullscreener1").onclick = () => {
-    setTimeout(() => opener.document.body.requestFullscreen(), delay);
-    document.body.requestFullscreen();
-  };
-  document.getElementById("fullscreener2").onclick = () => {
-    opener.document.body.requestFullscreen();
-    setTimeout(() => document.body.requestFullscreen(), delay);
-  };*/
 </script>
