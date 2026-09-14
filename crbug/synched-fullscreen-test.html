@@ -11,7 +11,7 @@
   }
 </style>
 <body onload="run()">
-  <div>
+  <div class="">
     <div>
       Click one button below,
       then come back to this window and click the same button again.
@@ -47,8 +47,6 @@
     if (!opener) {
       // Orignal window => no popup buttons.
       console.log("Removing popup buttons.");
-      document.body.firstElementChild.classList.remove("hidden");
-      document.body.lastElementChild.classList.add("hidden");
   
       document.getElementById("opener_s").onclick =
         () => open(location.href + "?s", "noname_s");
@@ -57,8 +55,8 @@
     } else {
       // Popup window => no orignal window buttons.
       console.log("Removing buttons for original window.");
-      document.body.firstElementChild.classList.add("hidden");
-      document.body.lastElementChild.classList.remove("hidden");
+      document.body.firstElementChild.classList.toggle("hidden");
+      document.body.lastElementChild.classList.toggle("hidden");
   
       document.getElementById("fullscreener_t_o").onclick = () => {
         opener.document.body.requestFullscreen();
