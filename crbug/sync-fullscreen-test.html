@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<title>Synched fullscreen test</title>
+<title>Sync fullscreen test</title>
 <style>
   .button {
     border: solid 1px grey;
@@ -46,7 +46,7 @@
     document.getElementById("opener_s").onclick =
       () => open(location.href + "?s", "noname_s");
     document.getElementById("opener_g").onclick =
-      () => open(location.href + "?g", "noname_g", "width=200,height=200,top=10,left=10");
+      () => open(location.href + "?g", "noname_g", "width=300,height=300,top=10,left=10");
 
     document.getElementById("fullscreener_t_o").onclick = () => {
       opener.document.body.requestFullscreen();
